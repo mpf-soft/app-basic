@@ -2,7 +2,9 @@
     "name": "mpf-soft/app-basic",
     "description": "MPF Framework Basic App",
     "require": {
-        "php": ">5.4.0"
+        "php": ">5.4.0",
+        "mpf-soft/mpf" => "*",
+        "mpf-soft/admin-widgets" => "*"
     },
     "license": "Apache License",
     "authors": [
@@ -11,5 +13,10 @@
             "email": "mitache.mirel@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload" : {
+		"psr-4" : {
+			"app\\" : "php/"
+		}
+    }
 }
