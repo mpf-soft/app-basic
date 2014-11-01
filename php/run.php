@@ -31,7 +31,7 @@ if (!isset($_SERVER['argv'])){
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('LIBS_FOLDER', dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR);
+define('LIBS_FOLDER', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
 define('APP_ROOT', __DIR__ . DIRECTORY_SEPARATOR);
 
 /**
@@ -64,21 +64,14 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
     }
 });
 
-require_once LIBS_FOLDER . 'mpf' . DIRECTORY_SEPARATOR . 'base' . DIRECTORY_SEPARATOR . 'AutoLoader.php';
+$autoload = require_once LIBS_FOLDER . 'autoload.php';
 
-\mpf\base\AutoLoader::get()->register();
 
 use mpf\ConsoleApp as App;
 use mpf\base\Config as Config;
-\mpf\base\AutoLoader::get()->addNamespace('mpf', LIBS_FOLDER.'mpf'.DIRECTORY_SEPARATOR);
-\mpf\base\AutoLoader::get()->addNamespace('mWidgets', LIBS_FOLDER.'mWidgets'.DIRECTORY_SEPARATOR);
-\mpf\base\AutoLoader::get()->addNamespace('app', APP_ROOT);
-\mpf\base\AutoLoader::get()->addNamespace('Facebook', LIBS_FOLDER.'Facebook'.DIRECTORY_SEPARATOR);
-\mpf\base\AutoLoader::get()->addNamespace('Predis', LIBS_FOLDER.'Predis'.DIRECTORY_SEPARATOR);
-\mpf\base\AutoLoader::get()->addNamespace('Psr', LIBS_FOLDER.'Psr'.DIRECTORY_SEPARATOR);
 new Config(APP_ROOT  . 'config' . DIRECTORY_SEPARATOR . 'console.inc.php');
-\mpf\base\AutoLoader::get()->applyConfig(Config::get()->forClass('mpf\\base\\AutoLoader'));
 
 App::run(array(
-    'startTime' => microtime(true)
+    'startTime' => microtime(true),
+    'autoload' => $autoload
 ));
