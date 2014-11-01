@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('LIBS_FOLDER', dirname(__DIR__) . DIRECTORY_SEPARATOR);
+define('LIBS_FOLDER', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
 define('APP_ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'php' . DIRECTORY_SEPARATOR);
 /**
  * Set ErrorException for every error;
@@ -49,6 +49,10 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
         0 * E_USER_DEPRECATED;
     $ex = new ErrorException($errstr, 0, $errno, $errfile, $errline);
     if (($ex->getSeverity() & $severity) != 0) {
+        if (!class_exists('\\mpf\\WebApp')){
+            echo $errfile . ':' . $errno . ':' . $errstr;
+            return;
+        }
         if (\mpf\WebApp::get()) {
             \mpf\WebApp::get()->error($errstr, array(
                 'File' => $errfile,
@@ -62,7 +66,7 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
     }
 });
 
-require_once LIBS_FOLDER . DIRECTORY_SEPARATOR . 'autoloader.php';
+require_once LIBS_FOLDER . 'autoload.php';
 
 
 use mpf\WebApp as App;
