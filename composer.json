@@ -3,8 +3,8 @@
     "description": "MPF Framework Basic App",
     "require": {
         "php": ">5.4.0",
-        "mpf-soft/mpf" => "*",
-        "mpf-soft/admin-widgets" => "*"
+        "mpf-soft/mpf" : "*",
+        "mpf-soft/admin-widgets" : "*"
     },
     "license": "Apache License",
     "authors": [
