@@ -4,8 +4,7 @@
     "require": {
         "php": ">5.4.0",
         "mpf-soft/mpf" : "*",
-        "mpf-soft/admin-widgets" : "*",
-        "php-fig/log" : "*"
+        "mpf-soft/admin-widgets" : "*"
     },
     "license": "Apache License",
     "authors": [
