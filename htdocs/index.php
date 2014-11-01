@@ -31,7 +31,13 @@ define('APP_ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'php' . DIRECTORY_SE
 /**
  * Set ErrorException for every error;
  */
-set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+set_error_handler(/**
+ * @param $errno
+ * @param $errstr
+ * @param $errfile
+ * @param $errline
+ */
+    function ($errno, $errstr, $errfile, $errline) {
     $severity = 1 * E_ERROR | // change 0 / 1 value to ignore / handle different errors;
         1 * E_WARNING |
         1 * E_PARSE |
