@@ -72,7 +72,7 @@ set_error_handler(/**
     }
 });
 
-require_once LIBS_FOLDER . 'autoload.php';
+$autoload = require_once LIBS_FOLDER . 'autoload.php';
 
 
 use mpf\WebApp as App;
@@ -87,5 +87,6 @@ new Config(APP_ROOT . 'config' . DIRECTORY_SEPARATOR . 'web.inc.php');
 
 App::run(array(
     'accessMap' => new AccessMap(array('map' => include(APP_ROOT . 'config' . DIRECTORY_SEPARATOR . 'accessmap.php'))),
-    'startTime' => microtime(true)
+    'startTime' => microtime(true),
+    'autoload' => $autoload
 ));
