@@ -1,0 +1,8 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# FOR MPF FRAMEWORK.. to understand the link when mod rewrite is active. is a redirect to index.php if is not a valid file or folder
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php
+

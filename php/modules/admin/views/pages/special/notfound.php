@@ -1,0 +1,1 @@
+<?= \app\components\htmltools\Page::title('Page not found!', array(), array('style' => 'color:orangered;'));?>

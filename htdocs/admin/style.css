@@ -1,0 +1,263 @@
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web);
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body {
+    background: url("images/noise.gif");
+    font-family: Verdana;
+    font-size: 12px;
+}
+
+h1, h2, h3, h4, h5, ul, li, form, body {
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+    color:#58acfa;
+}
+
+a:hover{
+    text-decoration: underline;
+    color:#1d5987;
+}
+
+#wrapper {
+    margin:10px;
+}
+
+#site {
+    background: #ffffff;
+    display: block;
+    float: left;
+    width: 100%;
+    box-shadow: 0px 0px 4px #aaaaaa;
+    border-radius: 4px;
+}
+
+#header, #content, #footer {
+    display: block;
+    float: left;
+    width: 100%;
+    min-height: 25px;
+}
+
+#footer {
+    text-align: center;
+    font-size: 10px;
+    color: #7f7f7f;
+    line-height: 25px;
+}
+
+#header-bar{
+    border-radius: 4px 4px 0px 0px;
+    display:block;
+    float:left;
+    width:100%;
+    background: #4884d5;
+    background: -moz-linear-gradient(top,  #4884d5 0%, #2a65a8 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4884d5), color-stop(100%,#2a65a8));
+    background: -webkit-linear-gradient(top,  #4884d5 0%,#2a65a8 100%);
+    background: -o-linear-gradient(top,  #4884d5 0%,#2a65a8 100%);
+    background: -ms-linear-gradient(top,  #4884d5 0%,#2a65a8 100%);
+    background: linear-gradient(to bottom,  #4884d5 0%,#2a65a8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4884d5', endColorstr='#2a65a8',GradientType=0 );
+    line-height: 40px;
+}
+
+#header-bar h1 a img{
+    max-height: 40px;
+    margin:0px;
+}
+
+#header-bar h1 a {
+    color: #fff;
+    font-family: 'Titillium Web', sans-serif;
+    text-decoration: none;
+    text-shadow: 1px 1px #2844a5;
+}
+
+#header h1 {
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+h1.page-title {
+    margin: 10px 0 0;
+    padding: 0 0 5px;
+    font-size: 13px;
+    color: #3f4f4f;
+    font-weight: 100;
+    line-height: 30px;
+    height: 30px;
+    float:left;
+    width: 100%;
+    border-bottom: 1px solid #dadada;
+}
+
+h1.page-title b {
+    font-weight: 100;
+    font-size: 18px;
+    margin-left: 15px;
+    display: block;
+    float: left;
+}
+
+h1.page-title ul {
+    display: block;
+    float: right;
+    margin: 0;
+    padding: 0;
+    margin-right: 10px;
+}
+
+h1.page-title ul li {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+h1.page-title ul li a {
+    display: block;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none;
+    color: #414151;
+    height: 24px;
+    line-height: 24px;
+    border:1px solid #fff;
+    border-radius: 5px;
+}
+
+h1.page-title ul li a:hover, h1.page-title ul li.selected a, h1.page-title ul:hover li.selected:hover a {
+    color: #fff;
+    background: #4884d5;
+    background: -moz-linear-gradient(top,  #4884d5 0%, #2a65a8 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4884d5), color-stop(100%,#2a65a8));
+    background: -webkit-linear-gradient(top,  #4884d5 0%,#2a65a8 100%);
+    background: -o-linear-gradient(top,  #4884d5 0%,#2a65a8 100%);
+    background: -ms-linear-gradient(top,  #4884d5 0%,#2a65a8 100%);
+    background: linear-gradient(to bottom,  #4884d5 0%,#2a65a8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4884d5', endColorstr='#2a65a8',GradientType=0 );
+    border:1px solid #fff;
+    box-shadow: 0px 0px 3px #4884d5;
+}
+
+h1.page-title ul:hover li.selected a {
+    color: #212121;
+    background: transparent;
+    box-shadow: none;
+}
+
+.user-messages {
+    display: block;
+    margin-left: 2%;
+    margin-top: 10px;
+    box-shadow: 0px 0px 1px #555555;
+    background: #999999;
+    color: #303030;
+    line-height: 35px;
+    font-size: 12px;
+    float:left;
+    width: 96%;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.user-message-info {
+    box-shadow: 0px 0px 1px limegreen;
+    color: white;
+    background: #90cd98;
+}
+
+.user-message-error {
+    box-shadow: 0px 0px 2px orangered;
+    color: orangered;
+    background: #ffe3f0;
+}
+
+.user-message-success {
+    box-shadow: 0px 0px 1px limegreen;
+    color: white;
+    background: #90cd98;
+}
+
+.user-message-warning {
+    box-shadow: 0px 0px 2px orangered;
+    color: orangered;
+    background: #ffe3f0;
+}
+
+.list-details{
+    display:block;
+    float:left;
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+.list-details li{
+    display:Block;
+    margin-left: 20px;
+    line-height: 30px;
+    font-size: 12px;
+}
+
+.log-details{
+    float:left;
+    width: 96%;
+    margin-left:2%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.log-details pre{
+    max-height: 500px;
+    overflow: auto;
+}

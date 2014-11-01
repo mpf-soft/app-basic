@@ -1,0 +1,15 @@
+{
+    "name": "mpf-soft/app-basic",
+    "description": "MPF Framework Basic App",
+    "require": {
+        "php": ">5.4.0"
+    },
+    "license": "Apache License",
+    "authors": [
+        {
+            "name": "Mirel Mitache",
+            "email": "mitache.mirel@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

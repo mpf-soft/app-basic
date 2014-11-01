@@ -1,0 +1,1 @@
+<?= \app\components\htmltools\Page::title('Access denied!', array(), array('style' => 'color:orangered;'));?>
