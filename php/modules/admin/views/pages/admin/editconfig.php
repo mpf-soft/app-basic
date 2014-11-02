@@ -1,7 +1,7 @@
 <?php
 /* @var $this \app\controllers\Admin */
 echo \app\components\htmltools\Page::title('Config Edit');
-\mWidgets\form\Form::get(array())->publishAssets();
+\mpf\widgets\form\Form::get(array())->publishAssets();
 ?>
 
 <div class="mform mform-default-wide">

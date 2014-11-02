@@ -12,7 +12,7 @@
         <div id="header">
             <h1><?= \mpf\web\helpers\Html::get()->link(\mpf\WebApp::get()->request()->getLinkRoot(), 'LCheck Test'); ?></h1>
             <?php
-            \mWidgets\menu\Menu::get(array(
+            \mpf\widgets\menu\Menu::get(array(
                 'items' => array(
                     array(
                         'url' => array(),

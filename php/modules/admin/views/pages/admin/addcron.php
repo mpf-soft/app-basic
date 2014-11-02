@@ -15,7 +15,7 @@ foreach ($actions as $action => $label) {
 echo \app\components\htmltools\Page::title('Crontab - ' . $actions[\mpf\WebApp::get()->request()->getAction()], $menu);
 
 
-echo \mWidgets\form\Form::get(array(
+echo \mpf\widgets\form\Form::get(array(
     'name' => 'add',
     'model' => $model,
     'theme' => 'default-wide',

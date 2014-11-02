@@ -2,7 +2,7 @@
 
 echo \app\components\htmltools\Page::title('Config');
 
-\mWidgets\datatable\Table::get(array(
+\mpf\widgets\datatable\Table::get(array(
     'dataProvider' => $model->getDataProvider(),
     'multiSelect' => true,
     'multiSelectActions' => array(

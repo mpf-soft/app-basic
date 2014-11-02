@@ -14,7 +14,7 @@ foreach ($actions as $action => $label) {
 
 echo \app\components\htmltools\Page::title('Users - View', $menu);
 
-echo \mWidgets\viewtable\Table::get(array(
+echo \mpf\widgets\viewtable\Table::get(array(
     'model' => $model,
     'labels' => $model::getLabels(),
     'columns' => array(

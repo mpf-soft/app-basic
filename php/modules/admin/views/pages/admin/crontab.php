@@ -14,7 +14,7 @@ foreach ($actions as $action => $label) {
 
 echo \app\components\htmltools\Page::title('Crontab - ' . $actions[\mpf\WebApp::get()->request()->getAction()], $menu);
 
-\mWidgets\datatable\Table::get(array(
+\mpf\widgets\datatable\Table::get(array(
     'dataProvider' => $model->getDataProvider(),
     'multiSelect' => true,
     'multiSelectActions' => array(

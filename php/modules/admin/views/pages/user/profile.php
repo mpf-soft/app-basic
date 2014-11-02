@@ -1,5 +1,5 @@
 <?php require __DIR__ . '/_header.php'; ?>
-<?= \mWidgets\viewtable\Table::get(array(
+<?= \mpf\widgets\viewtable\Table::get(array(
     'model' => $model,
     'labels' => $model::getLabels(),
     'columns' => array(

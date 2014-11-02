@@ -13,7 +13,7 @@ foreach ($actions as $action => $label) {
 }
 
 echo \app\components\htmltools\Page::title('Users - Edit', $menu);
-echo \mWidgets\form\Form::get(array(
+echo \mpf\widgets\form\Form::get(array(
     'name' => 'save',
     'model' => $model,
     'theme' => 'default-wide',

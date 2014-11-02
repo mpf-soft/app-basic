@@ -2,7 +2,7 @@
 
 <?php
 
- echo \mWidgets\form\Form::get(array(
+ echo \mpf\widgets\form\Form::get(array(
      'name' => 'login',
      'model' => $model,
      'fields' => array(

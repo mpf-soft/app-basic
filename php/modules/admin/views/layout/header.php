@@ -17,7 +17,7 @@
             </div>
             <div id="menu-bar">
                 <?php
-                \mWidgets\menu\Menu::get(array(
+                \mpf\widgets\menu\Menu::get(array(
                     'items' => array(
                         array(
                             'url' => array(),

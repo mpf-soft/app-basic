@@ -1,7 +1,7 @@
 <?php require __DIR__ . '/_header.php'; ?>
 <?php
 
-echo \mWidgets\form\Form::get(array(
+echo \mpf\widgets\form\Form::get(array(
     'name' => 'reset_password',
     'fields' => array(
         'email'
