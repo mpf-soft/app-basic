@@ -1,6 +1,6 @@
 <?php
 
-if (file_exists($dbConfigFile = dirname(dirname(dirname(dirname(__DIR__)))) . DIRECTORY_SEPARATOR . 'db.inc.php')) {
+if (file_exists($dbConfigFile = dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . 'db.inc.php')) {
     include $dbConfigFile;
 }
 
