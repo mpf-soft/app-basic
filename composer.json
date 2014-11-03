@@ -23,7 +23,7 @@
         "php": ">5.4.0",
         "mpf-soft/mpf" : "*",
         "mpf-soft/admin-widgets" : "*",
-        "facebook/facebook-php-sdk-v4" : "*"
+        "facebook/php-sdk-v4" : "*"
     },
     "license": "Apache License",
     "authors": [
