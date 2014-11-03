@@ -59,6 +59,12 @@
                                 'label' => 'Logout'
                             )
                         )
+                    ),
+                    array(
+                        'class' => 'Label',
+                        'label' => '<div class="fb-login-button" style="margin-top: 5px;" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>',
+                        'visible' => \mpf\WebApp::get()->user()->isGuest(),
+                        'htmlOptions' => ['style' => 'float:right;']
                     )
                 )
             ))->display();

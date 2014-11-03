@@ -29,6 +29,7 @@
 namespace app\components;
 
 use app\components\htmltools\Messages;
+use app\models\GlobalConfig;
 use app\models\User;
 use app\models\UserConfig;
 use Facebook\FacebookRequest;
@@ -46,12 +47,6 @@ use mpf\WebApp;
  * @property string $status
  */
 class ActiveUser extends \mpf\web\ActiveUser {
-
-    public $facebook = array(
-        'app-id' => 'id',
-        'app-secret' => 'secret'
-    );
-
 
     /**
      * Cookie timeout in days
@@ -96,8 +91,7 @@ class ActiveUser extends \mpf\web\ActiveUser {
     }
 
     protected function checkFacebook() {
-        return null;
-        $session = FacebookSession::newAppSession($this->facebook['app-id'], $this->facebook['app-secret']);
+        $session = FacebookSession::newAppSession(GlobalConfig::value('FACEBOOK_APPID'), GlobalConfig::value('FACEBOOK_APPSECRET'));
         $session->validate();
         $me = (new FacebookRequest($session, 'GET', '/me'))->execute()->getGraphObject(GraphUser::className());
         /* @var $me GraphUser */
