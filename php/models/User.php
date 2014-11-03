@@ -73,10 +73,11 @@ class User extends DbModel {
     const TYPE_VISITOR = 0; // normal user
     const PASSWORD_SALT = '342!$!@D#ASDA3d44';
 
-    public $newPassword;
-    public $repeatedPassword;
-    public $oldPassword;
-    public $newEmail;
+    /**
+     * Used by forms to change password and email.
+     * @var string
+     */
+    public $newPassword, $repeatedPassword, $oldPassword, $newEmail;
 
     public $groupIDs;
     public $comment;
