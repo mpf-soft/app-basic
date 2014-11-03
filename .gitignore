@@ -1,3 +1,4 @@
 /vendor/
 /htdocs/__assets/
 /.idea/
+/composer.lock
