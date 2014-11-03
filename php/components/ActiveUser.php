@@ -31,10 +31,9 @@ namespace app\components;
 use app\components\htmltools\Messages;
 use app\models\GlobalConfig;
 use app\models\User;
-use app\models\UserConfig;
+use Facebook\Facebook;
 use Facebook\FacebookRequest;
 use Facebook\FacebookSession;
-use Facebook\GraphUser;
 use mpf\web\Cookie;
 use mpf\WebApp;
 
