@@ -90,7 +90,11 @@ class ActiveUser extends \mpf\web\ActiveUser {
     }
 
     protected function checkFacebook() {
-        $session = FacebookSession::newAppSession(GlobalConfig::value('FACEBOOK_APPID'), GlobalConfig::value('FACEBOOK_APPSECRET'));
+        if (!GlobalConfig::value('FACEBOOK_APPID') || !GlobalConfig::value('FACEBOOK_APPSECRET')){
+            return;
+        }
+        FacebookSession::setDefaultApplication(GlobalConfig::value('FACEBOOK_APPID'), GlobalConfig::value('FACEBOOK_APPSECRET'));
+        $session = new FacebookSession(GlobalConfig::value('FACEBOOK_APPTOKEN'));
         $session->validate();
         $me = (new FacebookRequest($session, 'GET', '/me'))->execute()->getGraphObject(GraphUser::className());
         /* @var $me GraphUser */
