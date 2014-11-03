@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>LCheck Test</title>
+    <title><?= \mpf\WebApp::get()->title ?></title>
     <?= \mpf\web\helpers\Html::get()->cssFile(\mpf\WebApp::get()->request()->getWebRoot() . 'main/style.css'); ?>
     <?= \mpf\web\helpers\Html::get()->mpfScriptFile('jquery.js'); ?>
     <?= \mpf\web\helpers\Html::get()->scriptFile(\mpf\WebApp::get()->request()->getWebRoot() . 'main/main.js'); ?>
@@ -10,7 +10,7 @@
 <div id="wrapper">
     <div id="site">
         <div id="header">
-            <h1><?= \mpf\web\helpers\Html::get()->link(\mpf\WebApp::get()->request()->getLinkRoot(), 'LCheck Test'); ?></h1>
+            <h1><?= \mpf\web\helpers\Html::get()->link(\mpf\WebApp::get()->request()->getLinkRoot(), \mpf\WebApp::get()->title); ?></h1>
             <?php
             \mpf\widgets\menu\Menu::get(array(
                 'items' => array(
