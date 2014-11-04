@@ -77,13 +77,7 @@
                         'url' => 'http://test.test',
                         'htmlOptions' => ['style' => 'float:right;'],
                         'linkHtmlOptions' => ['class' => 'ext-login-button yahoo-login-button']
-                    ),
-                    array(
-                        'label' => 'OpenID Login',
-                        'url' => 'http://test.test',
-                        'htmlOptions' => ['style' => 'float:right;'],
-                        'linkHtmlOptions' => ['class' => 'ext-login-button openid-login-button']
-                    ),
+                    ),*/
                     array(
                         'label' => 'Google Login',
                         'url' => 'http://test.test',
@@ -95,7 +89,7 @@
                         'url' => 'http://test.test',
                         'htmlOptions' => ['style' => 'float:right;'],
                         'linkHtmlOptions' => ['class' => 'ext-login-button github-login-button']
-                    ),*/
+                    ),
                     array(
                         'label' => 'Facebook Login',
                         'url' => $url = \mpf\WebApp::get()->user()->getFacebookLoginURL(),

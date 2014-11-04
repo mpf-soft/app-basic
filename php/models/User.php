@@ -368,11 +368,6 @@ class User extends DbModel {
         trigger_error("GitHub Registration not implemented!");
     }
 
-    public static function openIDRegister(){
-        //@TODO: OpenID Registration
-        trigger_error("OpenID Registration not implemented!");
-    }
-
     public static function yahooRegister(){
         //@TODO: Yahoo Registration
         trigger_error("Yahoo Registration not implemented!");
@@ -386,11 +381,6 @@ class User extends DbModel {
     public static function windowsRegister(){
         //@TODO: Windows Registration
         trigger_error("Windows Registration not implemented!");
-    }
-
-    public static function steamRegister(){
-        //@TODO: Steam Registration
-        trigger_error("Steam Registration not implemented!");
     }
 
     /**
