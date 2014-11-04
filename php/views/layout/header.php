@@ -64,7 +64,7 @@
                         'label' => 'FacebookLogin',
                         'url' => $url = \mpf\WebApp::get()->user()->getFacebookLoginURL(),
                         'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url),
-                        'htmlOptions' => ['style' => 'float:right;', 'class' => 'facebook-login-button']
+                        'htmlOptions' => ['style' => 'float:right;', 'class' => 'ext-login-button facebook-login-button']
                     )
                 )
             ))->display();
