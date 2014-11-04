@@ -59,7 +59,7 @@ class ActiveUser extends \mpf\web\ActiveUser {
      * source that will return null or User object.
      * @var array
      */
-    public $autoLoginSources = array('cookie', 'facebook', 'google', 'steam');
+    public $autoLoginSources = ['cookie', 'facebook', 'google', 'steam', 'gitHub', 'openID', 'yahoo', 'twitter', 'windows'];
 
     public function login($user, $password, $source = 'post', $rememberMe = true) {
         $searchBy = (false !== strpos($user, '@')) ? 'email' : 'name';
@@ -84,10 +84,6 @@ class ActiveUser extends \mpf\web\ActiveUser {
                 return $this->checkUserLogin($user, $source, true);
             }
         }
-    }
-
-    protected function checkGoogle() {
-        return null;
     }
 
     /**
@@ -149,6 +145,30 @@ class ActiveUser extends \mpf\web\ActiveUser {
     }
 
     protected function checkSteam() {
+        return null;
+    }
+
+    protected function checkGoogle() {
+        return null;
+    }
+
+    protected function checkGitHub(){
+        return null;
+    }
+
+    protected function checkOpenID(){
+        return null;
+    }
+
+    protected function checkYahoo(){
+        return null;
+    }
+
+    protected function checkTwitter(){
+        return null;
+    }
+
+    protected function checkWindows(){
         return null;
     }
 

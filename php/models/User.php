@@ -358,6 +358,41 @@ class User extends DbModel {
         return $user;
     }
 
+    public static function googleRegister(){
+        //@TODO: Google Registration
+        trigger_error("Google Registration not implemented!");
+    }
+
+    public static function githubRegister(){
+        //@TODO: GitHub Registration
+        trigger_error("GitHub Registration not implemented!");
+    }
+
+    public static function openIDRegister(){
+        //@TODO: OpenID Registration
+        trigger_error("OpenID Registration not implemented!");
+    }
+
+    public static function yahooRegister(){
+        //@TODO: Yahoo Registration
+        trigger_error("Yahoo Registration not implemented!");
+    }
+
+    public static function twitterRegister(){
+        //@TODO: Twitter Registration
+        trigger_error("Twitter Registration not implemented!");
+    }
+
+    public static function windowsRegister(){
+        //@TODO: Windows Registration
+        trigger_error("Windows Registration not implemented!");
+    }
+
+    public static function steamRegister(){
+        //@TODO: Steam Registration
+        trigger_error("Steam Registration not implemented!");
+    }
+
     /**
      * @return DataProvider
      */
