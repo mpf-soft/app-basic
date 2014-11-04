@@ -100,6 +100,7 @@ class User extends Controller {
         if (isset($_POST['save_data_and_login']) && $user->setAttributes($_POST)->validate()) {
             $user->registerAuto();
         }
+        $this->assign('model', $user);
     }
 
     /**

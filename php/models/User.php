@@ -330,13 +330,12 @@ class User extends DbModel {
 
     /**
      * Register user using facebook data. It will also check if email already exists and it will update that user.
-     * @param FacebookSession $session
      * @param GraphUser $me
      * @return User|null
      */
-    public function facebookRegister(FacebookSession $session, GraphUser $me) {
+    public static function facebookRegister(GraphUser $me) {
         // 1. check if email already exists.
-        $old = static::findByAttributes(array('email' => $me->getEmail()));
+        $old = self::findByAttributes(array('email' => $me->getEmail()));
         if ($old) {
             /* @var $old User */
             $old->fb_id = $me->getId();
@@ -346,14 +345,13 @@ class User extends DbModel {
             $old->save(false);
             return $old;
         }
-        $details = (new FacebookRequest($session, 'GET', '/'))->execute()->getGraphObject();
-        /* @var $details \Facebook\GraphObject */
-        $this->fb_id = $me->getId();
-        $this->email = $details->getProperty('email');
-        $this->register_date = date('Y-m-d H:i:s');
-        $this->status = self::STATUS_ACTIVE;
-        $this->type = self::TYPE_VISITOR;
-        $this->save();
+        $user = new User();
+        $user->fb_id = $me->getId();
+        $user->email = $me->getProperty('email');
+        $user->register_date = date('Y-m-d H:i:s');
+        $user->status = self::STATUS_ACTIVE;
+        $user->save(false);
+        return $user;
     }
 
     /**

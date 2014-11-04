@@ -61,10 +61,10 @@
                         )
                     ),
                     array(
-                        'class' => 'Label',
-                        'label' => '<div class="fb-login-button" style="margin-top: 5px;" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>',
-                        'visible' => \mpf\WebApp::get()->user()->isGuest(),
-                        'htmlOptions' => ['style' => 'float:right;']
+                        'label' => 'FacebookLogin',
+                        'url' => $url = \mpf\WebApp::get()->user()->getFacebookLoginURL(),
+                        'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url),
+                        'htmlOptions' => ['style' => 'float:right;', 'class' => 'facebook-login-button']
                     )
                 )
             ))->display();

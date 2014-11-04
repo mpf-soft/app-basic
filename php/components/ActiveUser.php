@@ -31,9 +31,10 @@ namespace app\components;
 use app\components\htmltools\Messages;
 use app\models\GlobalConfig;
 use app\models\User;
-use Facebook\Facebook;
+use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookRequest;
 use Facebook\FacebookSession;
+use Facebook\GraphUser;
 use mpf\web\Cookie;
 use mpf\WebApp;
 
@@ -89,27 +90,61 @@ class ActiveUser extends \mpf\web\ActiveUser {
         return null;
     }
 
-    protected function checkFacebook() {
-        if (!GlobalConfig::value('FACEBOOK_APPID') || !GlobalConfig::value('FACEBOOK_APPSECRET')){
-            return;
+    /**
+     * @var FacebookRedirectLoginHelper
+     */
+    protected $loginHelper;
+
+    /**
+     * @return FacebookRedirectLoginHelper|null
+     */
+    protected function getFacebookRedirectLoginHelper(){
+        if (!$this->loginHelper){
+            if (!GlobalConfig::value('FACEBOOK_APPID') || !GlobalConfig::value('FACEBOOK_APPSECRET')){
+                return null;
+            }
+            FacebookSession::setDefaultApplication(GlobalConfig::value('FACEBOOK_APPID'), GlobalConfig::value('FACEBOOK_APPSECRET'));
+            $this->loginHelper = new FacebookRedirectLoginHelper(WebApp::get()->request()->getLinkRoot());
         }
-        FacebookSession::setDefaultApplication(GlobalConfig::value('FACEBOOK_APPID'), GlobalConfig::value('FACEBOOK_APPSECRET'));
-        $session = new FacebookSession(GlobalConfig::value('FACEBOOK_APPTOKEN'));
-        $session->validate();
-        $me = (new FacebookRequest($session, 'GET', '/me'))->execute()->getGraphObject(GraphUser::className());
+        return $this->loginHelper;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFacebookLoginURL(){
+        if (!is_null($helper = $this->getFacebookRedirectLoginHelper())){
+            return $helper->getLoginUrl(['email']);
+        }
+    }
+
+    /**
+     * @return User|null
+     */
+    protected function checkFacebook() {
+        if (is_null($helper = $this->getFacebookRedirectLoginHelper())){
+            return null;
+        }
+        try {
+            if (is_null($session = $helper->getSessionFromRedirect())){
+                return null;
+            }
+            /* @var $session FacebookSession */
+            $session->validate();
+            $me = (new FacebookRequest($session, 'GET', '/me?fields=id,name,email'))->execute()->getGraphObject(GraphUser::className());
+        } catch (\Exception $e){
+            $this->error($e->getMessage());
+            return null;
+        }
         /* @var $me GraphUser */
         if (!$me || !$me->getId()) {
-            return false;
+            return null;
         }
         $user = User::findByAttributes(array('fb_id' => $me->getId()));
 
         if (!$user) {
-            $user = new User();
-            if ($old = $user->facebookRegister($session, $me)) {
-                $user = $old;
-            }
+            $user = User::facebookRegister($me);
         }
-
         return $user;
     }
 
@@ -160,6 +195,7 @@ class ActiveUser extends \mpf\web\ActiveUser {
             Cookie::get()->set($this->cookieKey, $user->email, $this->cookieTimeout);
         }
         if (!trim($user->name)) { // fill last details if they were not already saved
+            $this->debug('need auto register');
             WebApp::get()->request()->setController('user');
             WebApp::get()->request()->setAction('registerauto');
         }
