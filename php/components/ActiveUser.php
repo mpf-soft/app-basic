@@ -201,4 +201,13 @@ class ActiveUser extends \mpf\web\ActiveUser {
         }
         return true;
     }
+
+    public function init($config = []){
+        parent::init($config);
+        if (!trim($this->name)){
+            $this->debug('need auto register');
+            WebApp::get()->request()->setController('user');
+            WebApp::get()->request()->setAction('registerauto');
+        }
+    }
 }

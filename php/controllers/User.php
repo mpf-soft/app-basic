@@ -97,7 +97,7 @@ class User extends Controller {
     public function actionRegisterauto() {
         $user = \app\models\User::findByPk(WebApp::get()->user()->id);
         $user->setAction('register-auto');
-        if (isset($_POST['save_data_and_login']) && $user->setAttributes($_POST)->validate()) {
+        if (isset($_POST['save_data_and_login']) && $user->setAttributes($_POST['User'])->validate()) {
             $user->registerAuto();
         }
         $this->assign('model', $user);

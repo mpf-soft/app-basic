@@ -133,6 +133,7 @@ class User extends DbModel {
             array('name, email, newPassword, repeatedPassword', 'required, safe', 'on' => 'register'),
             array('email, newEmail', 'unique, email', 'column' => 'email', 'on' => 'register, change-email'), // specified column to be used for newEmail also
             array('name', 'safe', 'on' => 'user-edit'),
+            array('name, newPassword, repeatedPassword', 'safe, required', 'on' => 'register-auto'),
             array('name, email, groupIDs, status, title_id', 'safe', 'on' => 'admin-edit'),
             array('name, password', 'required, safe', 'on' => 'login'),
             array('name', 'unique', 'on' => 'register'),

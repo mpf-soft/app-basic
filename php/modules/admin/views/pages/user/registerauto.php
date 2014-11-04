@@ -8,7 +8,7 @@ echo \mpf\widgets\form\Form::get(array(
     'fields' => array(
         'name',
         array(
-            'name' => 'password',
+            'name' => 'newPassword',
             'type' => 'password'
         ),
         array(
