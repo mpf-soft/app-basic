@@ -113,6 +113,13 @@
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/status/task-reject.png')
                                 )
                             )
+                        ),
+                        array(
+                            'label' => 'Login with Facebook',
+                            'url' => $url = \mpf\WebApp::get()->user()->getFacebookLoginURL(),
+                            'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url),
+                            'htmlOptions' => ['style' => 'float:right;'],
+                            'linkHtmlOptions' => ['class' => 'ext-login-button facebook-login-button']
                         )
                     )
                 ))->display();
