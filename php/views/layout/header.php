@@ -60,7 +60,7 @@
                             )
                         )
                     ),
-                    array(
+/*                    array(
                         'label' => 'Windows Login',
                         'url' => 'http://test.test',
                         'htmlOptions' => ['style' => 'float:right;'],
@@ -95,7 +95,7 @@
                         'url' => 'http://test.test',
                         'htmlOptions' => ['style' => 'float:right;'],
                         'linkHtmlOptions' => ['class' => 'ext-login-button github-login-button']
-                    ),
+                    ),*/
                     array(
                         'label' => 'Facebook Login',
                         'url' => $url = \mpf\WebApp::get()->user()->getFacebookLoginURL(),
