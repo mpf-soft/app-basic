@@ -129,10 +129,10 @@ a:hover{
     position: relative;
     display: inline-block;
     height: 22px;
-    padding: 0 1em;
+    padding: 0 1em !important;
     border: 1px solid #999;
     border-radius: 2px;
-    margin: 0;
+    margin: 5px 3px;
     text-align: center;
     text-decoration: none;
     font-size: 14px;
@@ -195,24 +195,24 @@ a:hover{
     padding: 0;
 }
 
-.facebook-login-button, .facebook-login-button:visited{
-    border-color: #29447e;
-    border-bottom-color: #1a356e;
-    color: #fff;
-    background-color: #5872a7;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#637bad), to(#5872a7));
-    background-image: -webkit-linear-gradient(#637bad, #5872a7);
-    background-image: -moz-linear-gradient(#637bad, #5872a7);
-    background-image: -ms-linear-gradient(#637bad, #5872a7);
-    background-image: -o-linear-gradient(#637bad, #5872a7);
-    background-image: linear-gradient(#637bad, #5872a7);
-    -webkit-box-shadow: inset 0 1px 0 #879ac0;
-    box-shadow: inset 0 1px 0 #879ac0;
+a.facebook-login-button, a.facebook-login-button:visited{
+    border-color: #29447e !important;
+    border-bottom-color: #1a356e !important;
+    color: #fff !important;
+    background-color: #5872a7 !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#637bad), to(#5872a7)) !important;
+    background-image: -webkit-linear-gradient(#637bad, #5872a7) !important;
+    background-image: -moz-linear-gradient(#637bad, #5872a7) !important;
+    background-image: -ms-linear-gradient(#637bad, #5872a7) !important;
+    background-image: -o-linear-gradient(#637bad, #5872a7) !important;
+    background-image: linear-gradient(#637bad, #5872a7) !important;
+    -webkit-box-shadow: inset 0 1px 0 #879ac0 !important;
+    box-shadow: inset 0 1px 0 #879ac0 !important;
 }
 
 .facebook-login-button:hover, .facebook-login-button:focus{
-    color: #fff;
-    background-color: #3b5998;
+    color: #fff !important;
+    background-color: #3b5998 !important;
 }
 
 .facebook-login-button:active{
@@ -234,41 +234,41 @@ a:hover{
 
 .github-login-button,
 .github-login-button:visited {
-    border-color: #d4d4d4;
-    background: #ececec;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
-    background-image: -webkit-linear-gradient(#f4f4f4, #ececec);
-    background-image: -moz-linear-gradient(#f4f4f4, #ececec);
-    background-image: -ms-linear-gradient(#f4f4f4, #ececec);
-    background-image: -o-linear-gradient(#f4f4f4, #ececec);
-    background-image: linear-gradient(#f4f4f4, #ececec);
+    border-color: #d4d4d4 !important;
+    background: #ececec !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec)) !important;
+    background-image: -webkit-linear-gradient(#f4f4f4, #ececec) !important;
+    background-image: -moz-linear-gradient(#f4f4f4, #ececec) !important;
+    background-image: -ms-linear-gradient(#f4f4f4, #ececec) !important;
+    background-image: -o-linear-gradient(#f4f4f4, #ececec) !important;
+    background-image: linear-gradient(#f4f4f4, #ececec) !important;
 }
 
 .github-login-button:hover,
 .github-login-button:focus {
-    border-color: #518cc6;
-    border-bottom-color: #2a65a0;
-    color: #fff;
-    background-color: #599bdc;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3));
-    background-image: -webkit-linear-gradient(#599bdc, #3072b3);
-    background-image: -moz-linear-gradient(#599bdc, #3072b3);
-    background-image: -ms-linear-gradient(#599bdc, #3072b3);
-    background-image: -o-linear-gradient(#599bdc, #3072b3);
-    background-image: linear-gradient(#599bdc, #3072b3);
+    border-color: #518cc6 !important;
+    border-bottom-color: #2a65a0 !important;
+    color: #fff !important;
+    background-color: #599bdc !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3)) !important;
+    background-image: -webkit-linear-gradient(#599bdc, #3072b3) !important;
+    background-image: -moz-linear-gradient(#599bdc, #3072b3) !important;
+    background-image: -ms-linear-gradient(#599bdc, #3072b3) !important;
+    background-image: -o-linear-gradient(#599bdc, #3072b3) !important;
+    background-image: linear-gradient(#599bdc, #3072b3) !important;
 }
 
 .github-login-button:active {
-    border-color: #2A65A0;
-    border-bottom-color: #518CC6;
-    color: #fff;
-    background: #3072B3;
-    background: -webkit-gradient(linear, 0 0, 0 100%, from(#3072b3), to(#599bdc));
-    background: -webkit-linear-gradient(#3072b3, #599bdc);
-    background: -moz-linear-gradient(#3072b3, #599bdc);
-    background: -ms-linear-gradient(#3072b3, #599bdc);
-    background: -o-linear-gradient(#3072b3, #599bdc);
-    background: linear-gradient(#3072b3, #599bdc);
+    border-color: #2A65A0 !important;
+    border-bottom-color: #518CC6 !important;
+    color: #fff !important;
+    background: #3072B3 !important;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#3072b3), to(#599bdc)) !important;
+    background: -webkit-linear-gradient(#3072b3, #599bdc) !important;
+    background: -moz-linear-gradient(#3072b3, #599bdc) !important;
+    background: -ms-linear-gradient(#3072b3, #599bdc) !important;
+    background: -o-linear-gradient(#3072b3, #599bdc) !important;
+    background: linear-gradient(#3072b3, #599bdc) !important;
 }
 
 /*
@@ -298,33 +298,33 @@ a:hover{
 
 .google-login-button,
 .google-login-button:visited {
-    border-color: #3079ed;
-    color: #fff;
-    background: #4787ed;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4d90fe), to(#4787ed));
-    background-image: -webkit-linear-gradient(#4d90fe, #4787ed);
-    background-image: -moz-linear-gradient(#4d90fe, #4787ed);
-    background-image: -ms-linear-gradient(#4d90fe, #4787ed);
-    background-image: -o-linear-gradient(#4d90fe, #4787ed);
-    background-image: linear-gradient(#4d90fe, #4787ed);
+    border-color: #3079ed !important;
+    color: #fff !important;
+    background: #4787ed !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4d90fe), to(#4787ed)) !important;
+    background-image: -webkit-linear-gradient(#4d90fe, #4787ed) !important;
+    background-image: -moz-linear-gradient(#4d90fe, #4787ed) !important;
+    background-image: -ms-linear-gradient(#4d90fe, #4787ed) !important;
+    background-image: -o-linear-gradient(#4d90fe, #4787ed) !important;
+    background-image: linear-gradient(#4d90fe, #4787ed) !important;
 }
 
 .google-login-button:hover,
 .google-login-button:focus,
 .google-login-button:active {
-    color: #fff;
-    background-color: #357ae8;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4d90fe), to(#357ae8));
-    background-image: -webkit-linear-gradient(#4d90fe, #357ae8);
-    background-image: -moz-linear-gradient(#4d90fe, #357ae8);
-    background-image: -ms-linear-gradient(#4d90fe, #357ae8);
-    background-image: -o-linear-gradient(#4d90fe, #357ae8);
-    background-image: linear-gradient(#4d90fe, #357ae8);
+    color: #fff !important;
+    background-color: #357ae8 !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4d90fe), to(#357ae8)) !important;
+    background-image: -webkit-linear-gradient(#4d90fe, #357ae8) !important;
+    background-image: -moz-linear-gradient(#4d90fe, #357ae8) !important;
+    background-image: -ms-linear-gradient(#4d90fe, #357ae8) !important;
+    background-image: -o-linear-gradient(#4d90fe, #357ae8) !important;
+    background-image: linear-gradient(#4d90fe, #357ae8) !important;
 }
 
 .google-login-button:active {
-    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
 /*
@@ -367,32 +367,32 @@ a:hover{
 
 .twitter-login-button,
 .twitter-login-button:visited {
-    border-color: #a6cde6;
-    color: #327695;
-    background: #cfe4f0;
+    border-color: #a6cde6 !important;
+    color: #327695 !important;
+    background: #cfe4f0 !important;
     /* css3 */
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f1f5f7), to(rgba(255, 255, 255, 0)));
-    background-image: -webkit-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    background-image: -moz-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    background-image: -ms-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    background-image: -o-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    background-image: linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    -webkit-box-shadow: inset 0 1px 0 #fff;
-    box-shadow: inset 0 1px 0 #fff;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f1f5f7), to(rgba(255, 255, 255, 0))) !important;
+    background-image: -webkit-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0)) !important;
+    background-image: -moz-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0)) !important;
+    background-image: -ms-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0)) !important;
+    background-image: -o-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0)) !important;
+    background-image: linear-gradient(#f1f5f7, rgba(255, 255, 255, 0)) !important;
+    -webkit-box-shadow: inset 0 1px 0 #fff !important;
+    box-shadow: inset 0 1px 0 #fff !important;
 }
 
 .twitter-login-button:hover,
 .twitter-login-button:focus,
 .twitter-login-button:active {
-    color: #327695;
-    border-color: #8dc2e4;
-    background-color: #cadde9;
+    color: #327695 !important;
+    border-color: #8dc2e4 !important;
+    background-color: #cadde9 !important;
 }
 
 .twitter-login-button:active {
-    background: #cadde9;
-    -webkit-box-shadow: inset 0 1px 0 #bbd6e7;
-    box-shadow: inset 0 1px 0 #bbd6e7;
+    background: #cadde9 !important;
+    -webkit-box-shadow: inset 0 1px 0 #bbd6e7 !important;
+    box-shadow: inset 0 1px 0 #bbd6e7 !important;
 }
 
 
@@ -435,26 +435,26 @@ a:hover{
 
 .yahoo-login-button,
 .yahoo-login-button:visited {
-    border-color: #ffb305;
-    background: #ffc426;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.5)), to(rgba(255, 255, 255, 0)));
-    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
-    background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
-    background-image: -ms-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
-    background-image: -o-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
-    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    border-color: #ffb305 !important;
+    background: #ffc426 !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.5)), to(rgba(255, 255, 255, 0))) !important;
+    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)) !important;
+    background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)) !important;
+    background-image: -ms-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)) !important;
+    background-image: -o-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)) !important;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)) !important;
 }
 
 .yahoo-login-button:hover,
 .yahoo-login-button:focus {
-    background-color: #fabf20;
+    background-color: #fabf20 !important;
 }
 
 .yahoo-login-button:active {
-    border-color: #f09700;
-    background-image: none;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
+    border-color: #f09700 !important;
+    background-image: none !important;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3) !important;
 }
 
 /*
