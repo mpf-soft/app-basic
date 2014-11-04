@@ -229,8 +229,11 @@ class User extends DbModel {
      * Save extra details after account was created using an external source like Facebook, Google, Steam
      */
     public function registerAuto() {
-        $this->password = self::hashPassword($this->password);
-        $this->save();
+        $this->password = self::hashPassword($this->newPassword);
+        if ($this->save()){
+            WebApp::get()->user()->name = $this->name;
+            $this->reload();
+        }
     }
 
     /**
