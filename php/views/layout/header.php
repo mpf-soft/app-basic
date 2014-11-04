@@ -61,7 +61,43 @@
                         )
                     ),
                     array(
-                        'label' => 'Login with Facebook',
+                        'label' => 'Windows Login',
+                        'url' => 'http://test.test',
+                        'htmlOptions' => ['style' => 'float:right;'],
+                        'linkHtmlOptions' => ['class' => 'ext-login-button windows-login-button']
+                    ),
+                    array(
+                        'label' => 'Twitter Login',
+                        'url' => 'http://test.test',
+                        'htmlOptions' => ['style' => 'float:right;'],
+                        'linkHtmlOptions' => ['class' => 'ext-login-button twitter-login-button']
+                    ),
+                    array(
+                        'label' => 'Yahoo Login',
+                        'url' => 'http://test.test',
+                        'htmlOptions' => ['style' => 'float:right;'],
+                        'linkHtmlOptions' => ['class' => 'ext-login-button yahoo-login-button']
+                    ),
+                    array(
+                        'label' => 'OpenID Login',
+                        'url' => 'http://test.test',
+                        'htmlOptions' => ['style' => 'float:right;'],
+                        'linkHtmlOptions' => ['class' => 'ext-login-button openid-login-button']
+                    ),
+                    array(
+                        'label' => 'Google Login',
+                        'url' => 'http://test.test',
+                        'htmlOptions' => ['style' => 'float:right;'],
+                        'linkHtmlOptions' => ['class' => 'ext-login-button google-login-button']
+                    ),
+                    array(
+                        'label' => 'GitHub Login',
+                        'url' => 'http://test.test',
+                        'htmlOptions' => ['style' => 'float:right;'],
+                        'linkHtmlOptions' => ['class' => 'ext-login-button github-login-button']
+                    ),
+                    array(
+                        'label' => 'Facebook Login',
                         'url' => $url = \mpf\WebApp::get()->user()->getFacebookLoginURL(),
                         'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url),
                         'htmlOptions' => ['style' => 'float:right;'],

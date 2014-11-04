@@ -98,9 +98,9 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * @return FacebookRedirectLoginHelper|null
      */
-    protected function getFacebookRedirectLoginHelper(){
-        if (!$this->loginHelper){
-            if (!GlobalConfig::value('FACEBOOK_APPID') || !GlobalConfig::value('FACEBOOK_APPSECRET')){
+    protected function getFacebookRedirectLoginHelper() {
+        if (!$this->loginHelper) {
+            if (!GlobalConfig::value('FACEBOOK_APPID') || !GlobalConfig::value('FACEBOOK_APPSECRET')) {
                 return null;
             }
             FacebookSession::setDefaultApplication(GlobalConfig::value('FACEBOOK_APPID'), GlobalConfig::value('FACEBOOK_APPSECRET'));
@@ -112,8 +112,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * @return string|null
      */
-    public function getFacebookLoginURL(){
-        if (!is_null($helper = $this->getFacebookRedirectLoginHelper())){
+    public function getFacebookLoginURL() {
+        if (!is_null($helper = $this->getFacebookRedirectLoginHelper())) {
             return $helper->getLoginUrl(['email']);
         }
     }
@@ -122,17 +122,17 @@ class ActiveUser extends \mpf\web\ActiveUser {
      * @return User|null
      */
     protected function checkFacebook() {
-        if (is_null($helper = $this->getFacebookRedirectLoginHelper())){
+        if (is_null($helper = $this->getFacebookRedirectLoginHelper())) {
             return null;
         }
         try {
-            if (is_null($session = $helper->getSessionFromRedirect())){
+            if (is_null($session = $helper->getSessionFromRedirect())) {
                 return null;
             }
             /* @var $session FacebookSession */
             $session->validate();
             $me = (new FacebookRequest($session, 'GET', '/me?fields=id,name,email'))->execute()->getGraphObject(GraphUser::className());
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
             return null;
         }
@@ -202,12 +202,14 @@ class ActiveUser extends \mpf\web\ActiveUser {
         return true;
     }
 
-    public function init($config = []){
+    public function init($config = []) {
         parent::init($config);
-        if (!trim($this->name)){
-            $this->debug('need auto register');
-            WebApp::get()->request()->setController('user');
-            WebApp::get()->request()->setAction('registerauto');
+        if ($this->isConnected()) {
+            if (!trim($this->name)) {
+                $this->debug('need auto register');
+                WebApp::get()->request()->setController('user');
+                WebApp::get()->request()->setAction('registerauto');
+            }
         }
     }
 }
