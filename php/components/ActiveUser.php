@@ -89,20 +89,20 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * @var FacebookRedirectLoginHelper
      */
-    protected $loginHelper;
+    protected $facebookLoginHelper;
 
     /**
      * @return FacebookRedirectLoginHelper|null
      */
     protected function getFacebookRedirectLoginHelper() {
-        if (!$this->loginHelper) {
+        if (!$this->facebookLoginHelper) {
             if (!GlobalConfig::value('FACEBOOK_APPID') || !GlobalConfig::value('FACEBOOK_APPSECRET')) {
                 return null;
             }
             FacebookSession::setDefaultApplication(GlobalConfig::value('FACEBOOK_APPID'), GlobalConfig::value('FACEBOOK_APPSECRET'));
-            $this->loginHelper = new FacebookRedirectLoginHelper(WebApp::get()->request()->getLinkRoot());
+            $this->facebookLoginHelper = new FacebookRedirectLoginHelper(WebApp::get()->request()->getLinkRoot());
         }
-        return $this->loginHelper;
+        return $this->facebookLoginHelper;
     }
 
     /**
@@ -144,7 +144,39 @@ class ActiveUser extends \mpf\web\ActiveUser {
         return $user;
     }
 
+    /**
+     * @var \Google_Client;
+     */
+    protected $googleClient;
+
+    /**
+     * @return null|\Google_Client
+     */
+    public function getGoogleClient(){
+        if (!$this->googleClient){
+            if (!GlobalConfig::value('GOOGLE_CLIENTID') || !GlobalConfig::value('GOOGLE_CLIENTSECRET')){
+                return null;
+            }
+            $this->googleClient = new \Google_Client();
+            $this->googleClient->setClientId(GlobalConfig::value('GOOGLE_CLIENTID'));
+            $this->googleClient->setClientSecret(GlobalConfig::value('GOOGLE_CLIENTSECRET'));
+            $this->googleClient->setRedirectUri('/');
+            $this->googleClient->addScope('https://www.googleapis.com/auth/urlshortener');
+            new \Google_Service_Urlshortener($this->googleClient);
+        }
+        return $this->googleClient;
+    }
+
     protected function checkGoogle() {
+        if (is_null($client = $this->getGoogleClient())){
+            return null;
+        }
+        if (!isset($_GET['code'])){
+            return null;
+        }
+
+        $client->authenticate($_GET['code']);
+
         return null;
     }
 
