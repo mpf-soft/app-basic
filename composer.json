@@ -24,8 +24,7 @@
         "mpf-soft/mpf" : "*",
         "mpf-soft/admin-widgets" : "*",
         "facebook/php-sdk-v4": "4.0.12",
-        "google/apiclient" : "*",
-        "knplabs/github-api": "~1.2"
+        "google/apiclient" : "*"
     },
     "license": "Apache License",
     "authors": [
