@@ -40,7 +40,7 @@ use mpf\WebApp;
  */
 class User extends Controller {
 
-    public function actionLogout(){
+    public function actionLogout() {
         WebApp::get()->user()->logout();
         WebApp::get()->request()->goBack();
     }
@@ -48,8 +48,31 @@ class User extends Controller {
     /**
      * Page user will see when is searching for it's own profile.
      */
-    public function actionProfile() {
-        $this->assign('model', \app\models\User::findByPk(WebApp::get()->user()->id));
+    public function actionProfile($removeFB = null, $removeGoogle = null) {
+        if (false === strpos($_SERVER['HTTP_REFERER'], $this->getRequest()->getLinkRoot()) || isset($_GET['code'])) { //if is a request from outsite the website
+            if (isset($_GET['code'])) {
+                if (WebApp::get()->user()->checkGoogle(true)) {
+                    Messages::get()->success("Connected to Google!");
+                }
+            } else {
+                if (WebApp::get()->user()->checkFacebook(true)) {
+                    Messages::get()->success("Connected to Facebook!");
+                }
+            }
+        }
+        $model = \app\models\User::findByPk(WebApp::get()->user()->id);
+        if ($removeFB) {
+            $model->fb_id = "";
+            if ($model->save(false))
+                Messages::get()->success("Disconnected from Facebook!");
+        }
+        if ($removeGoogle) {
+            $model->google_id = "";
+            if ($model->save(false))
+                Messages::get()->success("Disconnected from Google!");
+
+        }
+        $this->assign('model', $model);
     }
 
     /**
@@ -109,9 +132,10 @@ class User extends Controller {
      */
     public function actionEdit() {
         $user = \app\models\User::findByPk(WebApp::get()->user()->id)->setAction('user-edit');
-        if (isset($_POST['save'])){
+        if (isset($_POST['save'])) {
             $user->setAttributes($_POST['User']);
-            if ($user->save()){
+            if ($user->save()) {
+                WebApp::get()->user()->name = $user->name;
                 Messages::get()->success("Profile saved!");
                 $this->getRequest()->goToPage('user', 'profile');
             }
@@ -125,9 +149,9 @@ class User extends Controller {
      */
     public function actionEmail() {
         $user = \app\models\User::findByPk(WebApp::get()->user()->id)->setAction('change-email');
-        if (isset($_POST['save'])){
+        if (isset($_POST['save'])) {
             $user->setAttributes($_POST['User']);
-            if ($user->validate() && $user->changeEmail()){
+            if ($user->validate() && $user->changeEmail()) {
                 Messages::get()->success("Request to change email has been processed! Please click on the confirmation URL from your new email address!");
                 $this->getRequest()->goToPage('user', 'profile');
             }
@@ -141,9 +165,9 @@ class User extends Controller {
      */
     public function actionPassword() {
         $user = \app\models\User::findByPk(WebApp::get()->user()->id)->setAction('change-password');
-        if (isset($_POST['save'])){
+        if (isset($_POST['save'])) {
             $user->setAttributes($_POST['User']);
-            if ($user->validate() && $user->changePassword()){
+            if ($user->validate() && $user->changePassword()) {
                 Messages::get()->success("Password changed!");
                 $this->getRequest()->goToPage('user', 'profile');
             }
@@ -159,7 +183,7 @@ class User extends Controller {
             WebApp::get()->request()->goToPage('home');
         }
         $user = \app\models\User::model('forgot-password');
-        if (isset($_POST['reset_password'])){
+        if (isset($_POST['reset_password'])) {
             $user->forgotPassword();
         }
         $this->assign('user', $user);
@@ -172,7 +196,7 @@ class User extends Controller {
     public function actionResetPassword($code) {
         $code = explode('_', $code, 2);
         $user = \app\models\User::findByPk($code[0]);
-        if (!$user){
+        if (!$user) {
             Messages::get()->error('Invalid code!');
             $this->assign('error', true);
             return;

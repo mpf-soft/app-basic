@@ -40,6 +40,7 @@ use mpf\datasources\sql\DbRelations;
 use mpf\datasources\sql\ModelCondition;
 use mpf\helpers\ArrayHelper;
 use mpf\tools\Validator;
+use mpf\web\helpers\Html;
 use mpf\WebApp;
 
 /**
@@ -157,7 +158,9 @@ class User extends DbModel {
             'repeatedPassword' => 'Repeat Password',
             'oldPassword' => 'Old Password',
             'newEmail' => 'New Email',
-            'title_id' => 'Title'
+            'title_id' => 'Title',
+            'fb_id' => 'Facebook Connection',
+            'google_id' => 'Google Connection'
         );
     }
 
@@ -471,5 +474,23 @@ class User extends DbModel {
      */
     public function logAction($action, $comment = null){
         return UserHistory::addEntry($this->id, $action, $comment);
+    }
+
+    public function getFacebookConnectOrViewURL(){
+        if ($this->fb_id){
+            return Html::get()->tag('a', "Connected", ['class' => 'ext-login-button facebook-login-button']) .
+                Html::get()->link('?removeFB=1', 'Disconnect', ['style' => 'float:right;color:orangered;', 'onclick' => 'return confirm("Are you sure?");']);
+        } else {
+            return Html::get()->link(WebApp::get()->user()->getFacebookLoginURL(true), "Connect With Facebook", ['class' => 'ext-login-button facebook-login-button']);
+        }
+    }
+
+    public function getGoogleConnectOrViewURL(){
+        if ($this->google_id){
+            return Html::get()->tag('a', "Connected", ['class' => 'ext-login-button google-login-button']) .
+            Html::get()->link('?removeGoogle=1', 'Disconnect', ['style' => 'float:right;color:orangered;', 'onclick' => 'return confirm("Are you sure?");']);
+        } else {
+            return Html::get()->link(WebApp::get()->user()->getGoogleClient(true)->createAuthUrl(), "Connect With Google", ['class' => 'ext-login-button google-login-button']);
+        }
     }
 }

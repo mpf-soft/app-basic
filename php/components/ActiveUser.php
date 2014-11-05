@@ -95,15 +95,15 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * @return FacebookRedirectLoginHelper|null
      */
-    protected function getFacebookRedirectLoginHelper() {
-        if ($this->isConnected())
+    protected function getFacebookRedirectLoginHelper($force = false) {
+        if ($this->isConnected() && !$force)
             return null;
         if (!$this->facebookLoginHelper) {
             if (!GlobalConfig::value('FACEBOOK_APPID') || !GlobalConfig::value('FACEBOOK_APPSECRET')) {
                 return null;
             }
             FacebookSession::setDefaultApplication(GlobalConfig::value('FACEBOOK_APPID'), GlobalConfig::value('FACEBOOK_APPSECRET'));
-            $this->facebookLoginHelper = new FacebookRedirectLoginHelper(WebApp::get()->request()->getLinkRoot());
+            $this->facebookLoginHelper = new FacebookRedirectLoginHelper($force?WebApp::get()->request()->createURL('user', 'profile'):WebApp::get()->request()->getLinkRoot());
         }
         return $this->facebookLoginHelper;
     }
@@ -111,8 +111,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * @return string|null
      */
-    public function getFacebookLoginURL() {
-        if (!is_null($helper = $this->getFacebookRedirectLoginHelper())) {
+    public function getFacebookLoginURL($force = false) {
+        if (!is_null($helper = $this->getFacebookRedirectLoginHelper($force))) {
             return $helper->getLoginUrl(['email']);
         }
     }
@@ -120,8 +120,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * @return User|null
      */
-    protected function checkFacebook() {
-        if (is_null($helper = $this->getFacebookRedirectLoginHelper())) {
+    public function checkFacebook($force = false) {
+        if (is_null($helper = $this->getFacebookRedirectLoginHelper($force))) {
             return null;
         }
         try {
@@ -139,6 +139,13 @@ class ActiveUser extends \mpf\web\ActiveUser {
         if (!$me || !$me->getId()) {
             return null;
         }
+
+        if ($force){
+            $user =User::findByPk($this->id);
+            $user->fb_id = $me->getId();
+            return $user->save(false);
+        }
+
         $user = User::findByAttributes(array('fb_id' => $me->getId()));
 
         if (!$user) {
@@ -158,10 +165,16 @@ class ActiveUser extends \mpf\web\ActiveUser {
     protected $googleOauth;
 
     /**
+     * On google developers console you should add the following redirect uris: [replace www.website.com with your own website]
+     * http://www.website.com/
+     * http://www.website.com/user/profile
+     * http://www.website.com/admin/
+     * http://www.website.com/admin/user/profile
+     * @param bool $force
      * @return null|\Google_Client
      */
-    public function getGoogleClient(){
-        if ($this->isConnected())
+    public function getGoogleClient($force = false){
+        if ($this->isConnected() && !$force)
             return null;
         if (!$this->googleClient){
             if (!GlobalConfig::value('GOOGLE_CLIENTID') || !GlobalConfig::value('GOOGLE_CLIENTSECRET') || !GlobalConfig::value('GOOGLE_DEVELOPERKEY')){
@@ -170,7 +183,7 @@ class ActiveUser extends \mpf\web\ActiveUser {
             $this->googleClient = new \Google_Client();
             $this->googleClient->setClientId(GlobalConfig::value('GOOGLE_CLIENTID'));
             $this->googleClient->setClientSecret(GlobalConfig::value('GOOGLE_CLIENTSECRET'));
-            $this->googleClient->setRedirectUri(WebApp::get()->request()->getLinkRoot());
+            $this->googleClient->setRedirectUri($force?WebApp::get()->request()->createURL('user', 'profile'):WebApp::get()->request()->getLinkRoot());
             $this->googleClient->setDeveloperKey(GlobalConfig::value('GOOGLE_DEVELOPERKEY'));
             $this->googleClient->setScopes(array(
                 'https://www.googleapis.com/auth/plus.me',
@@ -182,8 +195,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
         return $this->googleClient;
     }
 
-    protected function checkGoogle() {
-        if (is_null($client = $this->getGoogleClient())){
+    public function checkGoogle($force = false) {
+        if (is_null($client = $this->getGoogleClient($force))){
             return null;
         }
         if (!isset($_GET['code'])){
@@ -199,7 +212,12 @@ class ActiveUser extends \mpf\web\ActiveUser {
             'profile_url' => filter_var($user['link'], FILTER_VALIDATE_URL),
             'image_url' => filter_var($user['picture'], FILTER_VALIDATE_URL)
         ];
-        $this->debug(print_r($details, true));
+        if ($force){
+            $user =User::findByPk($this->id);
+            $user->google_id = $details['id'];
+            return $user->save(false);
+        }
+
         if (!is_null($user = User::findByAttributes(['google_id' => $details['id']]))){
             return $user;
         }
