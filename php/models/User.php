@@ -139,7 +139,7 @@ class User extends DbModel {
             array('name, email, groupIDs, status, title_id', 'safe', 'on' => 'admin-edit'),
             array('name, password', 'required, safe', 'on' => 'login'),
             array('name', 'unique', 'on' => 'register'),
-            array('newEmail', 'required', 'on' => 'change-email'),
+            array('newEmail, oldPassword', 'required', 'on' => 'change-email'),
             array('email', 'required', 'on' => 'forgot-password'),
             array('oldPassword, newPassword, repeatedPassword', 'required', 'on' => 'change-password'),
             array('repeatedPassword', 'compare', 'column' => 'newPassword'),
@@ -148,7 +148,7 @@ class User extends DbModel {
                     return true;
                 }
                 throw new \Exception($message ? $message : $validator->translate($label . ' is wrong!'));
-            }, 'on' => 'change-password')
+            }, 'on' => 'change-password, change-email')
         );
     }
 
@@ -481,7 +481,7 @@ class User extends DbModel {
             return Html::get()->tag('a', "Connected", ['class' => 'ext-login-button facebook-login-button']) .
                 Html::get()->link('?removeFB=1', 'Disconnect', ['style' => 'float:right;color:orangered;', 'onclick' => 'return confirm("Are you sure?");']);
         } else {
-            return Html::get()->link(WebApp::get()->user()->getFacebookLoginURL(true), "Connect With Facebook", ['class' => 'ext-login-button facebook-login-button']);
+            return Html::get()->link(WebApp::get()->user()->getFacebookLoginURL(true), "Link To Facebook", ['class' => 'ext-login-button facebook-login-button']);
         }
     }
 
@@ -490,7 +490,7 @@ class User extends DbModel {
             return Html::get()->tag('a', "Connected", ['class' => 'ext-login-button google-login-button']) .
             Html::get()->link('?removeGoogle=1', 'Disconnect', ['style' => 'float:right;color:orangered;', 'onclick' => 'return confirm("Are you sure?");']);
         } else {
-            return Html::get()->link(WebApp::get()->user()->getGoogleClient(true)->createAuthUrl(), "Connect With Google", ['class' => 'ext-login-button google-login-button']);
+            return Html::get()->link(WebApp::get()->user()->getGoogleClient(true)->createAuthUrl(), "Link To Google", ['class' => 'ext-login-button google-login-button']);
         }
     }
 }

@@ -5,6 +5,10 @@
     'model' => $model,
     'theme' => 'default-wide',
     'fields' => array(
+        [
+            'name' => 'oldPassword',
+            'type' => 'password'
+        ],
         'newEmail'
     ),
     'formHtmlOptions' => array(
