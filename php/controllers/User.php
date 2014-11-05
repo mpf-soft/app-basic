@@ -63,13 +63,17 @@ class User extends Controller {
         $model = \app\models\User::findByPk(WebApp::get()->user()->id);
         if ($removeFB) {
             $model->fb_id = "";
-            if ($model->save(false))
+            if ($model->save(false)) {
                 Messages::get()->success("Disconnected from Facebook!");
+                $this->getRequest()->goBack();
+            }
         }
         if ($removeGoogle) {
             $model->google_id = "";
-            if ($model->save(false))
+            if ($model->save(false)) {
                 Messages::get()->success("Disconnected from Google!");
+                $this->getRequest()->goBack();
+            }
 
         }
         $this->assign('model', $model);
