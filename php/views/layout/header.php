@@ -77,18 +77,19 @@
                         'url' => 'http://test.test',
                         'htmlOptions' => ['style' => 'float:right;'],
                         'linkHtmlOptions' => ['class' => 'ext-login-button yahoo-login-button']
-                    ),*/
-                    array(
-                        'label' => 'Google Login',
-                        'url' => 'http://test.test',
-                        'htmlOptions' => ['style' => 'float:right;'],
-                        'linkHtmlOptions' => ['class' => 'ext-login-button google-login-button']
                     ),
                     array(
                         'label' => 'GitHub Login',
                         'url' => 'http://test.test',
                         'htmlOptions' => ['style' => 'float:right;'],
                         'linkHtmlOptions' => ['class' => 'ext-login-button github-login-button']
+                    ),*/
+                    array(
+                        'label' => 'Google Login',
+                        'url' => ($url = \mpf\WebApp::get()->user()->getGoogleClient()?\mpf\WebApp::get()->user()->getGoogleClient()->createAuthUrl():null),
+                        'htmlOptions' => ['style' => 'float:right;'],
+                        'linkHtmlOptions' => ['class' => 'ext-login-button google-login-button'],
+                        'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url)
                     ),
                     array(
                         'label' => 'Facebook Login',

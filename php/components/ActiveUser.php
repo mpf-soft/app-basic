@@ -35,6 +35,7 @@ use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookRequest;
 use Facebook\FacebookSession;
 use Facebook\GraphUser;
+use Github\Client;
 use mpf\web\Cookie;
 use mpf\WebApp;
 
@@ -95,6 +96,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
      * @return FacebookRedirectLoginHelper|null
      */
     protected function getFacebookRedirectLoginHelper() {
+        if ($this->isConnected())
+            return null;
         if (!$this->facebookLoginHelper) {
             if (!GlobalConfig::value('FACEBOOK_APPID') || !GlobalConfig::value('FACEBOOK_APPSECRET')) {
                 return null;
@@ -150,19 +153,31 @@ class ActiveUser extends \mpf\web\ActiveUser {
     protected $googleClient;
 
     /**
+     * @var \Google_Service_Oauth2
+     */
+    protected $googleOauth;
+
+    /**
      * @return null|\Google_Client
      */
     public function getGoogleClient(){
+        if ($this->isConnected())
+            return null;
         if (!$this->googleClient){
-            if (!GlobalConfig::value('GOOGLE_CLIENTID') || !GlobalConfig::value('GOOGLE_CLIENTSECRET')){
+            if (!GlobalConfig::value('GOOGLE_CLIENTID') || !GlobalConfig::value('GOOGLE_CLIENTSECRET') || !GlobalConfig::value('GOOGLE_DEVELOPERKEY')){
                 return null;
             }
             $this->googleClient = new \Google_Client();
             $this->googleClient->setClientId(GlobalConfig::value('GOOGLE_CLIENTID'));
             $this->googleClient->setClientSecret(GlobalConfig::value('GOOGLE_CLIENTSECRET'));
-            $this->googleClient->setRedirectUri('/');
-            $this->googleClient->addScope('https://www.googleapis.com/auth/urlshortener');
-            new \Google_Service_Urlshortener($this->googleClient);
+            $this->googleClient->setRedirectUri(WebApp::get()->request()->getLinkRoot());
+            $this->googleClient->setDeveloperKey(GlobalConfig::value('GOOGLE_DEVELOPERKEY'));
+            $this->googleClient->setScopes(array(
+                'https://www.googleapis.com/auth/plus.me',
+                'https://www.googleapis.com/auth/userinfo.email',
+                'https://www.googleapis.com/auth/userinfo.profile',
+            ));
+            $this->googleOauth = new \Google_Service_Oauth2($this->googleClient);
         }
         return $this->googleClient;
     }
@@ -174,10 +189,22 @@ class ActiveUser extends \mpf\web\ActiveUser {
         if (!isset($_GET['code'])){
             return null;
         }
-
+        $this->debug($_GET['code']);
         $client->authenticate($_GET['code']);
+        $user = $this->googleOauth->userinfo->get();
+        $details = [
+            'id' => $user['id'],
+            'name' => filter_var($user['name'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'email' => filter_var($user['email'], FILTER_SANITIZE_EMAIL),
+            'profile_url' => filter_var($user['link'], FILTER_VALIDATE_URL),
+            'image_url' => filter_var($user['picture'], FILTER_VALIDATE_URL)
+        ];
+        $this->debug(print_r($details, true));
+        if (!is_null($user = User::findByAttributes(['google_id' => $details['id']]))){
+            return $user;
+        }
 
-        return null;
+        return User::googleRegister($details);
     }
 
     protected function checkGitHub(){

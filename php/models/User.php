@@ -57,6 +57,7 @@ use mpf\WebApp;
  * @property string $last_login
  * @property string $last_login_source
  * @property string $fb_id
+ * @property string $google_id
  * @property int $status
  * @property int $title_id
  * @property string $new_email
@@ -333,6 +334,29 @@ class User extends DbModel {
     }
 
     /**
+     * Register or updates an user based on google details
+     * @param $details
+     * @return User
+     */
+    public static function googleRegister($details){
+        if (!is_null($old = self::findByAttributes(['email' => $details['email']]))){
+            $old->google_id = $details['id'];
+            if ($old->status == self::STATUS_NEW){
+                $old->status = self::STATUS_ACTIVE;
+            }
+            $old->save(false);
+            return $old;
+        }
+        $user = new User();
+        $user->google_id = $details['id'];
+        $user->email = $details['email'];
+        $user->register_date = date('Y-m-d H:i:s');
+        $user->status = self::STATUS_ACTIVE;
+        $user->save(false);
+        return $user;
+    }
+
+    /**
      * Register user using facebook data. It will also check if email already exists and it will update that user.
      * @param GraphUser $me
      * @return User|null
@@ -356,11 +380,6 @@ class User extends DbModel {
         $user->status = self::STATUS_ACTIVE;
         $user->save(false);
         return $user;
-    }
-
-    public static function googleRegister(){
-        //@TODO: Google Registration
-        trigger_error("Google Registration not implemented!");
     }
 
     public static function githubRegister(){
