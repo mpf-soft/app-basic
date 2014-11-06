@@ -31,6 +31,7 @@ namespace app\components;
 use app\components\htmltools\Messages;
 use app\models\GlobalConfig;
 use app\models\User;
+use app\models\UserConfig;
 use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookRequest;
 use Facebook\FacebookSession;
@@ -80,8 +81,7 @@ class ActiveUser extends \mpf\web\ActiveUser {
      */
     protected function checkAutoLogin() {
         foreach ($this->autoLoginSources as $source) {
-            $user = $this->{'check' . ucfirst($source)}();
-            if (null !== $user) {
+            if (!is_null($user = $this->{'check' . ucfirst($source)}())){
                 return $this->checkUserLogin($user, $source, true);
             }
         }
@@ -124,12 +124,15 @@ class ActiveUser extends \mpf\web\ActiveUser {
         if (is_null($helper = $this->getFacebookRedirectLoginHelper($force))) {
             return null;
         }
+        $this->debug('got helper');
         try {
             if (is_null($session = $helper->getSessionFromRedirect())) {
+                $this->debug('can\'t get session');
                 return null;
             }
             /* @var $session FacebookSession */
             $session->validate();
+            $this->debug('got session');
             $me = (new FacebookRequest($session, 'GET', '/me?fields=id,name,email'))->execute()->getGraphObject(GraphUser::className());
         } catch (\Exception $e) {
             $this->error($e->getMessage());
@@ -143,6 +146,9 @@ class ActiveUser extends \mpf\web\ActiveUser {
         if ($force){
             $user =User::findByPk($this->id);
             $user->fb_id = $me->getId();
+            UserConfig::set('FACEBOOK_NAME', $me->getFirstName() . ' ' . $me->getMiddleName() . ' ' . $me->getLastName());
+            UserConfig::set('FACEBOOK_EMAIL', $me->getProperty('email'));
+            UserConfig::set('FACEBOOK_PROFILE', $me->getLink());
             return $user->save(false);
         }
 
@@ -199,7 +205,7 @@ class ActiveUser extends \mpf\web\ActiveUser {
         if (is_null($client = $this->getGoogleClient($force))){
             return null;
         }
-        if (!isset($_GET['code'])){
+        if (!isset($_GET['code']) || isset($_GET['state'])){
             return null;
         }
         $this->debug($_GET['code']);
@@ -215,6 +221,10 @@ class ActiveUser extends \mpf\web\ActiveUser {
         if ($force){
             $user =User::findByPk($this->id);
             $user->google_id = $details['id'];
+            UserConfig::set('GOOGLE_NAME', $details['name']);
+            UserConfig::set('GOOGLE_EMAIL', $details['email']);
+            UserConfig::set('GOOGLE_PROFILE', $details['profile_url']);
+            UserConfig::set('GOOGLE_IMAGE', $details['image_url']);
             return $user->save(false);
         }
 
@@ -277,6 +287,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
         $this->setState('name', $user->name);
         $this->setState('email', $user->email);
         $this->setState('status', $user->status);
+        $this->setRights($groups = $user->getGroupsList());
+        $this->debug("Saved groups: " . implode(", " , $groups));
         $user->last_login = date('Y-m-d H:i:s');
         $user->last_login_source = $source;
         $user->save();

@@ -50,19 +50,33 @@
  *  * used for controllers means that all controllers will have those default
  *  rights
  */
-return array(
-    'home' => array(
+return [
+    'home' => [
         '*' => '*'
-    ),
-    'user' => array(
+    ],
+    'user' => [
         '*' => '@',
         'register, login, forgotpassword, resetpassword' => '*'
-    ),
-    'admin/user' => array(
+    ],
+    'admin/user' => [
         '*' => '@',
         'register, login, forgotpassword, resetpassword' => '*'
-    ),
-    'admin/*' => array(
-        '*' => '@'
-    )
-);
+    ],
+    'admin/*' => [
+        '*' => 'ADMINS'
+    ],
+    'admin/usergroups' => [
+        '*' => 'DEVELOPERS',
+        'index, edit' => 'DEVELOPERS, ADMINS'
+    ],
+    'admin/admin' => [
+        '*' => 'DEVELOPERS',
+        'config, editConfig' => 'DEVELOPERS, ADMINS'
+    ],
+    'admin/users' => [
+        '*' => 'MODERATORS'
+    ],
+    'admin/usertitles' => [
+        '*' => 'MODERATORS'
+    ]
+];

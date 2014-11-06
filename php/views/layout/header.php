@@ -55,38 +55,42 @@
                                 'label' => 'Change Password'
                             ),
                             array(
+                                'url' => array('home', 'index', 'admin'),
+                                'label' => 'Administration'
+                            ),
+                            array(
                                 'url' => array('user', 'logout'),
                                 'label' => 'Logout'
                             )
                         )
                     ),
-/*                    array(
-                        'label' => 'Windows Login',
-                        'url' => 'http://test.test',
-                        'htmlOptions' => ['style' => 'float:right;'],
-                        'linkHtmlOptions' => ['class' => 'ext-login-button windows-login-button']
-                    ),
-                    array(
-                        'label' => 'Twitter Login',
-                        'url' => 'http://test.test',
-                        'htmlOptions' => ['style' => 'float:right;'],
-                        'linkHtmlOptions' => ['class' => 'ext-login-button twitter-login-button']
-                    ),
-                    array(
-                        'label' => 'Yahoo Login',
-                        'url' => 'http://test.test',
-                        'htmlOptions' => ['style' => 'float:right;'],
-                        'linkHtmlOptions' => ['class' => 'ext-login-button yahoo-login-button']
-                    ),
-                    array(
-                        'label' => 'GitHub Login',
-                        'url' => 'http://test.test',
-                        'htmlOptions' => ['style' => 'float:right;'],
-                        'linkHtmlOptions' => ['class' => 'ext-login-button github-login-button']
-                    ),*/
+                    /*                    array(
+                                            'label' => 'Windows Login',
+                                            'url' => 'http://test.test',
+                                            'htmlOptions' => ['style' => 'float:right;'],
+                                            'linkHtmlOptions' => ['class' => 'ext-login-button windows-login-button']
+                                        ),
+                                        array(
+                                            'label' => 'Twitter Login',
+                                            'url' => 'http://test.test',
+                                            'htmlOptions' => ['style' => 'float:right;'],
+                                            'linkHtmlOptions' => ['class' => 'ext-login-button twitter-login-button']
+                                        ),
+                                        array(
+                                            'label' => 'Yahoo Login',
+                                            'url' => 'http://test.test',
+                                            'htmlOptions' => ['style' => 'float:right;'],
+                                            'linkHtmlOptions' => ['class' => 'ext-login-button yahoo-login-button']
+                                        ),
+                                        array(
+                                            'label' => 'GitHub Login',
+                                            'url' => 'http://test.test',
+                                            'htmlOptions' => ['style' => 'float:right;'],
+                                            'linkHtmlOptions' => ['class' => 'ext-login-button github-login-button']
+                                        ),*/
                     array(
                         'label' => 'Google Login',
-                        'url' => ($url = \mpf\WebApp::get()->user()->getGoogleClient()?\mpf\WebApp::get()->user()->getGoogleClient()->createAuthUrl():null),
+                        'url' => ($url = \mpf\WebApp::get()->user()->getGoogleClient() ? \mpf\WebApp::get()->user()->getGoogleClient()->createAuthUrl() : null),
                         'htmlOptions' => ['style' => 'float:right;'],
                         'linkHtmlOptions' => ['class' => 'ext-login-button google-login-button'],
                         'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url)

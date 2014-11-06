@@ -10,7 +10,7 @@ return array(
         'loggers' => array('mpf\\loggers\\InlineWebLogger')
     ),
     'mpf\\datasources\\sql\\PDOConnection' => array(
-        'dns' => 'mysql:dbname=test;host=' . (defined('DB_HOST') ? DB_HOST : 'localhost'),
+        'dns' => 'mysql:dbname=demoapp;host=' . (defined('DB_HOST') ? DB_HOST : 'localhost'),
         'username' => defined('DB_USER') ? DB_USER : 'root',
         'password' => defined('DB_PASS') ? DB_PASS : ''
     ),

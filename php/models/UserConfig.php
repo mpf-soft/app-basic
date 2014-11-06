@@ -18,7 +18,6 @@ use mpf\WebApp;
  * @property int $id
  * @property string $name
  * @property string $value
- * @property int $label
  * @property int $user_id
  * @property \app\models\User $user
  */
@@ -42,7 +41,6 @@ class UserConfig extends DbModel {
              'id' => 'Id',
              'name' => 'Name',
              'value' => 'Value',
-             'label' => 'Label',
              'user_id' => 'User'
         );
     }
@@ -63,6 +61,11 @@ class UserConfig extends DbModel {
         );
     }
 
+    /**
+     * Get value for selected key. If it doesn't exists then return null.
+     * @param string $key
+     * @return null|string
+     */
     public static function value($key){
         $cache = App::get()->cacheValue('app:UserConfig:'. WebApp::get()->user()->id);
         if (!$cache){
@@ -73,6 +76,10 @@ class UserConfig extends DbModel {
 
     protected static $configValues;
 
+    /**
+     * Update cache with config values
+     * @return array
+     */
     public static function updateCache(){
         if (self::$configValues){
             return self::$configValues;
@@ -87,5 +94,17 @@ class UserConfig extends DbModel {
             self::$configValues = $cache;
         }
         return $cache;
+    }
+
+    /**
+     * Update(/insert) config value for selected user.
+     * @param string $key
+     * @param string $value
+     * @param null|int $user
+     * @return bool|int
+     */
+    public static function set($key, $value, $user=null){
+        $user = $user?:WebApp::get()->user()->id;
+        return self::getDb()->table(self::getTableName())->insert(['name' => $key, 'value' => $value, 'user_id' => $user], ['value' => $value]);
     }
 }

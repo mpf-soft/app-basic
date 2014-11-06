@@ -73,6 +73,13 @@ class User extends DbModel {
     const STATUS_BLOCKED = 2; // account blocked
     const STATUS_DELETED = 3; // account deleted by user (it will be deleted in a few days from DB)
     const TYPE_VISITOR = 0; // normal user
+    /**
+     * CHANGE THIS VALUE FOR EACH APPLICATION CREATED! KEEP IT FOR INTERNAL APPLICATIONS ONLY IF YOU NEED TO IMPORT USERS
+     * FROM ONE APP TO ANOTHER.
+     *
+     * TIP: When a security problem occurs and passwords must be reseted you can simple change this value. No old password
+     * will be matched and all users will have to reset it.
+     */
     const PASSWORD_SALT = '342!$!@D#ASDA3d44';
 
     /**
@@ -160,7 +167,8 @@ class User extends DbModel {
             'newEmail' => 'New Email',
             'title_id' => 'Title',
             'fb_id' => 'Facebook Connection',
-            'google_id' => 'Google Connection'
+            'google_id' => 'Google Connection',
+            'groupIDs' => 'Groups'
         );
     }
 
@@ -174,6 +182,10 @@ class User extends DbModel {
         }
     }
 
+    /**
+     * Update this with a better way to generate more complex passwords!
+     * @return string
+     */
     public static function generateRandomPassword(){
         return uniqid();
     }
@@ -269,6 +281,10 @@ class User extends DbModel {
         return true;
     }
 
+    /**
+     * Sends an email with a link to reset password
+     * @return bool
+     */
     public function forgotPassword() {
         $user = self::findByAttributes(array('email' => $this->email));
         if (!$user) {
@@ -348,6 +364,10 @@ class User extends DbModel {
                 $old->status = self::STATUS_ACTIVE;
             }
             $old->save(false);
+            UserConfig::set('GOOGLE_NAME', $details['name'], $old->id);
+            UserConfig::set('GOOGLE_EMAIL', $details['email'], $old->id);
+            UserConfig::set('GOOGLE_PROFILE', $details['profile_url'], $old->id);
+            UserConfig::set('GOOGLE_IMAGE', $details['image_url'], $old->id);
             return $old;
         }
         $user = new User();
@@ -356,6 +376,10 @@ class User extends DbModel {
         $user->register_date = date('Y-m-d H:i:s');
         $user->status = self::STATUS_ACTIVE;
         $user->save(false);
+        UserConfig::set('GOOGLE_NAME', $details['name'], $user->id);
+        UserConfig::set('GOOGLE_EMAIL', $details['email'], $user->id);
+        UserConfig::set('GOOGLE_PROFILE', $details['profile_url'], $user->id);
+        UserConfig::set('GOOGLE_IMAGE', $details['image_url'], $user->id);
         return $user;
     }
 
@@ -374,6 +398,9 @@ class User extends DbModel {
                 $old->status = self::STATUS_ACTIVE;
             }
             $old->save(false);
+            UserConfig::set('FACEBOOK_NAME', $me->getFirstName() . ' ' . $me->getMiddleName() . ' ' . $me->getLastName(), $old->id);
+            UserConfig::set('FACEBOOK_EMAIL', $me->getProperty('email'), $old->id);
+            UserConfig::set('FACEBOOK_PROFILE', $me->getLink(), $old->id);
             return $old;
         }
         $user = new User();
@@ -382,6 +409,9 @@ class User extends DbModel {
         $user->register_date = date('Y-m-d H:i:s');
         $user->status = self::STATUS_ACTIVE;
         $user->save(false);
+        UserConfig::set('FACEBOOK_NAME', $me->getFirstName() . ' ' . $me->getMiddleName() . ' ' . $me->getLastName(), $user->id);
+        UserConfig::set('FACEBOOK_EMAIL', $me->getProperty('email'), $user->id);
+        UserConfig::set('FACEBOOK_PROFILE', $me->getLink(), $user->id);
         return $user;
     }
 
@@ -421,6 +451,10 @@ class User extends DbModel {
         ));
     }
 
+    /**
+     * User status as string to display
+     * @return mixed
+     */
     public function getStringStatus(){
         $statuses = self::getStatuses();
         return $statuses[$this->status];
@@ -476,21 +510,43 @@ class User extends DbModel {
         return UserHistory::addEntry($this->id, $action, $comment);
     }
 
-    public function getFacebookConnectOrViewURL(){
+    /**
+     * Used for profile details page to show if user is connected to Facebook and to add options to Disconnect/Connect
+     * @param bool $admin
+     * @return string
+     */
+    public function getFacebookConnectOrViewURL($admin = false){
         if ($this->fb_id){
             return Html::get()->tag('a', "Connected", ['class' => 'ext-login-button facebook-login-button']) .
                 Html::get()->link('?removeFB=1', 'Disconnect', ['style' => 'float:right;color:orangered;', 'onclick' => 'return confirm("Are you sure?");']);
+        } elseif ($admin) {
+            return "Not Connected";
         } else {
             return Html::get()->link(WebApp::get()->user()->getFacebookLoginURL(true), "Link To Facebook", ['class' => 'ext-login-button facebook-login-button']);
         }
     }
 
-    public function getGoogleConnectOrViewURL(){
+    /**
+     * Used for profile details page to show if user is connected to Google and to add options to Disconnect/Connect
+     * @param bool $admin
+     * @return string
+     */
+    public function getGoogleConnectOrViewURL($admin = false){
         if ($this->google_id){
             return Html::get()->tag('a', "Connected", ['class' => 'ext-login-button google-login-button']) .
             Html::get()->link('?removeGoogle=1', 'Disconnect', ['style' => 'float:right;color:orangered;', 'onclick' => 'return confirm("Are you sure?");']);
+        } elseif ($admin) {
+            return "Not Connected";
         } else {
             return Html::get()->link(WebApp::get()->user()->getGoogleClient(true)->createAuthUrl(), "Link To Google", ['class' => 'ext-login-button google-login-button']);
         }
+    }
+
+    /**
+     * Returns list of user_groups.name to be used by ActiveUser (or any other class that needs it.
+     * @return array
+     */
+    public function getGroupsList(){
+        return ArrayHelper::get()->transform($this->groups, 'name');
     }
 }

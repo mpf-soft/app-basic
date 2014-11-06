@@ -36,7 +36,7 @@ class Users extends Controller {
         $this->assign('model', $model);
     }
 
-    public function actionView($id) {
+    public function actionView($id, $removeFB =null, $removeGoogle =null) {
         $model = User::findByPk($id);
         $this->assign('model', $model);
     }

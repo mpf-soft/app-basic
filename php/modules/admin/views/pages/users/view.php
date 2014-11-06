@@ -11,7 +11,7 @@ foreach ($actions as $action => $label) {
         'htmlOptions' => ($action == $this->getActiveAction()) ? array('class' => 'selected') : array()
     );
 }
-
+/* @var $model \app\models\User */
 echo \app\components\htmltools\Page::title('Users - View', $menu);
 
 echo \mpf\widgets\viewtable\Table::get(array(
@@ -24,6 +24,12 @@ echo \mpf\widgets\viewtable\Table::get(array(
         'last_login',
         'status' => array(
             'value' => $model->getStringStatus()
+        ),
+        'fb_id' => array(
+            'value' => $model->getFacebookConnectOrViewURL(true)
+        ),
+        'google_id' => array(
+            'value' => $model->getGoogleConnectOrViewURL(true)
         )
     )
 ))->display();
