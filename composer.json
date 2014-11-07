@@ -38,5 +38,10 @@
 		"psr-4" : {
 			"app\\" : "php/"
 		}
+    },
+    "scripts" : {
+        "post-install-cmd" : [
+            "mpf\\tools\\Installer::baseAppWithSQL"
+        ]
     }
 }
