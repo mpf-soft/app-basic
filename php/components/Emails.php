@@ -29,9 +29,10 @@
 namespace app\components;
 
 use app\models\User;
-use mpf\base\Mailer;
-use \mpf\base\TranslatableObject;
+use mpf\base\App;
+use mpf\base\TranslatableObject;
 use mpf\WebApp;
+use mpf\helpers\MailHelper;
 
 /**
  * Contains a list of templates for emails sent for different actions. New methods can be added at any time for more
@@ -43,10 +44,10 @@ use mpf\WebApp;
 class Emails extends TranslatableObject {
 
     /**
-     * Website title to be displayed in emails.
+     * Website title to be displayed in emails. If null it will use application title from mpf\base\App->title
      * @var string
      */
-    public $website = 'My First App';
+    public $website;
 
     /**
      * A link root can be specified in case that this method is used from console app or the active link root should not
@@ -69,11 +70,12 @@ class Emails extends TranslatableObject {
     }
 
     protected function init($config = array()) {
+        $this->website = $this->website ?: App::get()->title;
         return parent::init($config = array());
     }
 
     protected function getLinkRoot() {
-        return $this->linkRoot ? $this->linkRoot : WebApp::get()->request()->getLinkRoot();
+        return $this->linkRoot ?: WebApp::get()->request()->getLinkRoot();
     }
 
     /**
@@ -85,10 +87,10 @@ class Emails extends TranslatableObject {
      * @return boolean
      */
     protected function sendEmail($subject, $message, $email, $name) {
-        return Mailer::get()->send(array('email' => $email, 'name' => $name), $subject, $message);
+        return MailHelper::get()->send(array('email' => $email, 'name' => $name), $subject, $message);
     }
 
-    public function sendPasswordForgot(User $user, $code){
+    public function sendPasswordForgot(User $user, $code) {
         $url = WebApp::get()->request()->createURL("user", "resetpassword", array('code' => $code));
         $message = <<<MESSAGE
 Hello {user->name},
@@ -106,7 +108,7 @@ MESSAGE;
         return $this->sendEmail('Reset Password For ' . $this->website, $message, $user->email, $user->name);
     }
 
-    public function sendGeneratedPassword(User $user, $password){
+    public function sendGeneratedPassword(User $user, $password) {
         $message = <<<MESSAGE
 Hello {user->name},
 
@@ -121,8 +123,8 @@ MESSAGE;
         return $this->sendEmail('New Password For ' . $this->website, $message, $user->email, $user->name);
     }
 
-    public function sendPasswordToNewAccount(User $user, $password){
-        $adminName= WebApp::get()->user()->name;
+    public function sendPasswordToNewAccount(User $user, $password) {
+        $adminName = WebApp::get()->user()->name;
         $message = <<<MESSAGE
 Hello {user->name},
 
