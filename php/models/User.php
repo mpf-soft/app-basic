@@ -65,6 +65,7 @@ use mpf\WebApp;
  * @property int $createdbyadmin_id
  * @property int $joinuser_id
  * @property string $deleteblock_date
+ * @property string $lastconfirmationmail_date
  */
 class User extends DbModel {
 
@@ -90,6 +91,11 @@ class User extends DbModel {
 
     public $groupIDs;
     public $comment;
+    /**
+     * Allow confirmation email re-send in certain cases.
+     * @var bool
+     */
+    public static $allowConfirmationEmailResend = false;
 
     public static function getStatuses($except = null){
         $list =  [
@@ -224,6 +230,7 @@ class User extends DbModel {
         $this->register_date = date('Y-m-d H:i:s');
         $this->status = self::STATUS_NEW;
         $this->title_id = GlobalConfig::value('USERS_DEFAULT_TITLE_ID');
+        $this->lastconfirmationmail_date = date('Y-m-d H:i:s');
         $groups = explode(",", GlobalConfig::value('USERS_DEFAULT_GROUP_IDS'));
         if ($this->save(false)) {
             if (!Emails::get()->sendToNewAccount($this)) {
@@ -323,6 +330,7 @@ class User extends DbModel {
      */
     public function changeEmail() {
         $this->new_email = $this->newEmail;
+        $this->lastconfirmationmail_date = date('Y-m-d H:i:s');
         if ($this->save()){
             if (!Emails::get()->sentToEmailChange($this)){
                 $this->new_email = null;

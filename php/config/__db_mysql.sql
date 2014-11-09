@@ -72,6 +72,7 @@ CREATE TABLE `users` (
   `createdbyadmin_id` int(10) unsigned DEFAULT NULL,
   `joinuser_id` int(10) unsigned DEFAULT NULL,
   `deleteblock_date` timestamp NULL DEFAULT NULL,
+  `lastconfirmationmail_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -271,6 +271,10 @@ class ActiveUser extends \mpf\web\ActiveUser {
      */
     protected function checkUserLogin(User $user, $source, $rememberMe) {
         if ($user->status == User::STATUS_NEW) {
+            if (is_null($user->lastconfirmationmail_date) || $user->lastconfirmationmail_date < date('Y-m-d H:i:s', strtotime('-5 minutes'))){
+                // if confirmation email was older than 5 minutes then allow it to resend it
+                User::$allowConfirmationEmailResend = true;
+            }
             Messages::get()->error('Email address was not yet confirmed! Check your emails and access received link to activate the account!');
             return false;
         }
