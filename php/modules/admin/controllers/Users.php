@@ -74,8 +74,16 @@ class Users extends Controller {
 
     public function actionMerge() {
         $models = User::findAllByPk($_POST['User']);
-        // @TODO: Write merge code!
-        Messages::get()->warning("Accounts merges not yet implemented!");
+        if (!count($models)){
+            $this->getRequest()->goBack();
+        }
+        $mergeId = $models[0]->id;
+        foreach ($models as $model){
+            $model->joinuser_id = $mergeId;
+            $model->save(false);
+            $model->logAction(UserHistory::ACTION_MERGED, 'List of IDs: ' . implode(", ", $_POST['User']));
+        }
+        Messages::get()->success("Accounts merged!");
         $this->getRequest()->goBack();
     }
 } 

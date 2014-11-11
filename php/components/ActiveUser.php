@@ -36,7 +36,7 @@ use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookRequest;
 use Facebook\FacebookSession;
 use Facebook\GraphUser;
-use Github\Client;
+use mpf\helpers\ArrayHelper;
 use mpf\web\Cookie;
 use mpf\WebApp;
 
@@ -47,6 +47,7 @@ use mpf\WebApp;
  * @property string $name
  * @property string $email
  * @property string $status
+ * @property array $mergedIDs
  */
 class ActiveUser extends \mpf\web\ActiveUser {
 
@@ -296,6 +297,10 @@ class ActiveUser extends \mpf\web\ActiveUser {
         $this->setState('name', $user->name);
         $this->setState('email', $user->email);
         $this->setState('status', $user->status);
+        if ($user->joinuser_id){
+            $all = User::findAllByAttributes(['joinuser_id' => $user->joinuser_id]);
+            $this->setState('mergedIDs', ArrayHelper::get()->transform($all, 'id'));
+        }
         $this->setRights($groups = $user->getGroupsList());
         $this->debug("Saved groups: " . implode(", " , $groups));
         $user->last_login = date('Y-m-d H:i:s');

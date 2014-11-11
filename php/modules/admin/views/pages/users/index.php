@@ -19,22 +19,29 @@ echo \app\components\htmltools\Page::title('Users - ' . $actions[$this->getActiv
     'dataProvider' => $model->getDataProvider(),
     'multiSelect' => true,
     'multiSelectActions' => array(
-        'delete' => array(
+        'delete' => [
             'label' => 'Delete',
             'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/16x16/actions/edit-delete.png'),
             'shortcut' => 'Shift+Delete',
-            'url' => \mpf\WebApp::get()->request()->createURL("users", "delete")
-        ),
-        'enable' => array(
+            'url' => \mpf\WebApp::get()->request()->createURL("users", "delete"),
+            'confirmation' => 'Are you sure?'
+        ],
+        'enable' => [
             'label' => 'Enable',
             'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/16x16/actions/dialog-ok-apply.png'),
             'url' => \mpf\WebApp::get()->request()->createURL("users", "index")
-        ),
-        'disable' => array(
+        ],
+        'disable' => [
             'label' => 'Disable',
             'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/16x16/actions/dialog-cancel.png'),
             'url' => \mpf\WebApp::get()->request()->createURL("users", "index")
-        )
+        ],
+        'join' => [
+            'label' => 'Join Accounts',
+            'icon'=> \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/16x16/actions/dialog-cancel.png'),
+            'url' => \mpf\WebApp::get()->request()->createURL("users", "merge"),
+            'confirmation' => 'Are you sure? After this user can log in on any of those accounts and see data from all of them.[where this is supported]'
+        ]
     ),
     'columns' => array(
         'name',
