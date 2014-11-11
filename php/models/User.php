@@ -248,6 +248,27 @@ class User extends DbModel {
         return false;
     }
 
+    public function resendConfirmationEmail($action = 'register'){
+        $this->setAction($action);
+        if('register' == $action) {
+            if (!Emails::get()->sendToNewAccount($this)) {
+                Messages::get()->error("There was an error when trying to send confirmation email! Please try again later!");
+                return false;
+            } else {
+                Messages::get()->success("A confirmation link was sent to the specified email address!");
+                return true;
+            }
+        } else {
+            if (!Emails::get()->sentToEmailChange($this)){
+                Messages::get()->error("There was an error when trying to send confirmation email! Please try again later!");
+                return false;
+            } else {
+                Messages::get()->success("A confirmation link was sent to the specified email address!");
+                return true;
+            }
+        }
+    }
+
     /**
      * Save extra details after account was created using an external source like Facebook, Google, Steam
      */

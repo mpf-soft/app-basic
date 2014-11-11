@@ -88,7 +88,7 @@ class User extends Controller {
             WebApp::get()->request()->goToPage('home');
         }
         $user = \app\models\User::model('login');
-        if (isset($_POST['login']) && $user->setAttributes($_POST['User'])->validate()) {
+        if ((isset($_POST['login']) || isset($_POST['resend'])) && $user->setAttributes($_POST['User'])->validate()) {
             if ($user->login()) {
                 WebApp::get()->request()->goBack(); // refresh so that it will be redirected back where it has to go.
             }

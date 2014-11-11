@@ -274,8 +274,13 @@ class ActiveUser extends \mpf\web\ActiveUser {
             if (is_null($user->lastconfirmationmail_date) || $user->lastconfirmationmail_date < date('Y-m-d H:i:s', strtotime('-5 minutes'))){
                 // if confirmation email was older than 5 minutes then allow it to resend it
                 User::$allowConfirmationEmailResend = true;
+                if (isset($_POST['resend'])){
+                    $user->resendConfirmationEmail();
+                }
             }
-            Messages::get()->error('Email address was not yet confirmed! Check your emails and access received link to activate the account!');
+            if (!isset($_POST['resend'])) {
+                Messages::get()->error('Email address was not yet confirmed! Check your emails and access received link to activate the account!');
+            }
             return false;
         }
         if ($user->status == User::STATUS_BLOCKED) {
