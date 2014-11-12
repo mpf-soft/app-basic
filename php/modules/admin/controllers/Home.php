@@ -27,24 +27,17 @@
  */
 
 namespace app\modules\admin\controllers;
+use app\components\Controller;
 
 /**
  * Description of Home
  *
  * @author mirel
  */
-class Home extends \mpf\web\Controller {
+class Home extends Controller {
 
     public function actionIndex() {
-        
-    }
 
-    public function actionLogin() {
-        
-    }
-
-    public function actionLogout() {
-        
     }
 
 }
