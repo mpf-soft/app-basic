@@ -13,7 +13,7 @@ use mpf\base\App;
 
 class Command extends \mpf\cli\Command {
 
-    const REDIS_LOCKS = 'App:ConsoleLocks';
+    const REDIS_LOCKS = ':ConsoleLocks';
 
     /**
      * Prevents more than one instance for the same action
@@ -44,7 +44,7 @@ class Command extends \mpf\cli\Command {
      */
     protected function checkLock($actionName) {
         $command = str_replace('\\', '_', get_class($this));
-        $oldPid = App::get()->redis()->hget(self::REDIS_LOCKS, $command . ':' . $actionName);
+        $oldPid = App::get()->redis()->hget(App::get()->shortName.self::REDIS_LOCKS, $command . ':' . $actionName);
         if (!$oldPid) {
             $this->setLock($actionName, $command);
             return true;
@@ -65,7 +65,7 @@ class Command extends \mpf\cli\Command {
      */
     protected function setLock($actionName, $command = null) {
         $command = $command ?: str_replace('\\', '_', get_class($this));
-        App::get()->redis()->hset(self::REDIS_LOCKS, $command . ':' . $actionName, getmypid());
+        App::get()->redis()->hset(App::get()->shortName.self::REDIS_LOCKS, $command . ':' . $actionName, getmypid());
     }
 
     /**
@@ -75,7 +75,7 @@ class Command extends \mpf\cli\Command {
      */
     protected function clearLock($actionName, $command = null) {
         $command = $command ?: str_replace('\\', '_', get_class($this));
-        App::get()->redis()->hdel(Self::REDIS_LOCKS, $command . ':' . $actionName);
+        App::get()->redis()->hdel(App::get()->shortName.self::REDIS_LOCKS, $command . ':' . $actionName);
     }
 
     /**

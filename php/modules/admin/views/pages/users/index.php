@@ -38,7 +38,7 @@ echo \app\components\htmltools\Page::title('Users - ' . $actions[$this->getActiv
         ],
         'join' => [
             'label' => 'Join Accounts',
-            'icon'=> \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/16x16/actions/dialog-cancel.png'),
+            'icon'=> \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/16x16/actions/im-msn.png'),
             'url' => \mpf\WebApp::get()->request()->createURL("users", "merge"),
             'confirmation' => 'Are you sure? After this user can log in on any of those accounts and see data from all of them.[where this is supported]'
         ]
@@ -49,7 +49,7 @@ echo \app\components\htmltools\Page::title('Users - ' . $actions[$this->getActiv
         'register_date' => array('class' => 'Date'),
         'last_login' => array('class' => 'Date'),
         'last_login_source' => array(
-            'filter' => array('post' => 'POST', 'cookie' => 'Cookie', 'facebook' => 'Facebook')
+            'filter' => array('post' => 'POST', 'cookie' => 'Cookie', 'facebook' => 'Facebook', 'google' => 'Google')
         ),
         'status' => array(
             'class' => 'Select',
