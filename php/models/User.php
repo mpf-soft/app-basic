@@ -314,14 +314,18 @@ class User extends DbModel {
      * @return bool
      */
     public function forgotPassword() {
-        $user = self::findByAttributes(array('email' => $this->email));
+        $user = self::findByAttributes(['email' => $this->email]);
         if (!$user) {
             Messages::get()->error('User not found!');
             return false;
         }
         $code = $user->id.'_'.md5($user->register_date.$user->email . 'password' . self::PASSWORD_SALT);
         $user->logAction(UserHistory::ACTION_PASSWORDRESETREQUEST);
-        return Emails::get()->sendPasswordForgot($user, $code);
+        if (!Emails::get()->sendPasswordForgot($user, $code)){
+            Messages::get()->error("There was a problem while trying to send the email!");
+            return false;
+        }
+        return true;
     }
 
     /**

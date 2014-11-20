@@ -188,7 +188,10 @@ class User extends Controller {
         }
         $user = \app\models\User::model('forgot-password');
         if (isset($_POST['reset_password'])) {
-            $user->forgotPassword();
+            $user->setAttributes($_POST['User']);
+            if ($user->forgotPassword()){
+                $this->request->goToURL($this->request->getLinkRoot());
+            }
         }
         $this->assign('user', $user);
     }
