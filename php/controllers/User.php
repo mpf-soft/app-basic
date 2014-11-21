@@ -50,7 +50,7 @@ class User extends Controller {
      */
     public function actionProfile($removeFB = null, $removeGoogle = null) {
         if (false === strpos($_SERVER['HTTP_REFERER'], $this->getRequest()->getLinkRoot()) || isset($_GET['code'])) { //if is a request from outsite the website
-            if (isset($_GET['code'])) {
+            if (!isset($_GET['state'])) {
                 if (WebApp::get()->user()->checkGoogle(true)) {
                     Messages::get()->success("Connected to Google!");
                 }
