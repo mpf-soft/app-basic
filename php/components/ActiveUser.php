@@ -149,7 +149,9 @@ class ActiveUser extends \mpf\web\ActiveUser {
             $user->fb_id = $me->getId();
             UserConfig::set('FACEBOOK_NAME', $me->getFirstName() . ' ' . $me->getMiddleName() . ' ' . $me->getLastName());
             UserConfig::set('FACEBOOK_EMAIL', $me->getProperty('email'));
-            UserConfig::set('FACEBOOK_PROFILE', $me->getLink());
+            if ($me->getLink()) {
+                UserConfig::set('FACEBOOK_PROFILE', $me->getLink());
+            }
             return $user->save(false);
         }
 
