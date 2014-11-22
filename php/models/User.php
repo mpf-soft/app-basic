@@ -555,7 +555,11 @@ class User extends DbModel {
         } elseif ($admin) {
             return "Not Connected";
         } else {
-            return Html::get()->link(WebApp::get()->user()->getFacebookLoginURL(true), "Link To Facebook", ['class' => 'ext-login-button facebook-login-button']);
+            $url =WebApp::get()->user()->getFacebookLoginURL(true);
+            if (!$url){
+                return "Not configured!";
+            }
+            return Html::get()->link($url, "Link To Facebook", ['class' => 'ext-login-button facebook-login-button']);
         }
     }
 
@@ -571,6 +575,9 @@ class User extends DbModel {
         } elseif ($admin) {
             return "Not Connected";
         } else {
+            if (!WebApp::get()->user()->getGoogleClient(true)) {
+                return "Not configured!";
+            }
             return Html::get()->link(WebApp::get()->user()->getGoogleClient(true)->createAuthUrl(), "Link To Google", ['class' => 'ext-login-button google-login-button']);
         }
     }
