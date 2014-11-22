@@ -12,98 +12,98 @@
         <div id="header">
             <h1><?= \mpf\web\helpers\Html::get()->link(\mpf\WebApp::get()->request()->getLinkRoot(), \mpf\WebApp::get()->title); ?></h1>
             <?php
-            \mpf\widgets\menu\Menu::get(array(
-                'items' => array(
-                    array(
-                        'url' => array(),
+            \mpf\widgets\menu\Menu::get([
+                'items' => [
+                    [
+                        'url' => [],
                         'label' => 'Home'
-                    ),
-                    array(
-                        'url' => array('user', 'login'),
+                    ],
+                    [
+                        'url' => ['user', 'login'],
                         'label' => 'Login',
                         'visible' => \mpf\WebApp::get()->user()->isGuest()
-                    ),
-                    array(
-                        'url' => array('user', 'register'),
+                    ],
+                    [
+                        'url' => ['user', 'register'],
                         'label' => 'Register',
                         'visible' => \mpf\WebApp::get()->user()->isGuest()
-                    ),
-                    array(
-                        'url' => array('user', 'forgotpassword'),
+                    ],
+                    [
+                        'url' => ['user', 'forgotpassword'],
                         'label' => 'Forgot Password',
                         'visible' => \mpf\WebApp::get()->user()->isGuest()
-                    ),
-                    array(
+                    ],
+                    [
                         'class' => 'Label',
                         'label' => \mpf\WebApp::get()->user()->isGuest() ? 'Welcome Guest!' : 'Welcome ' . \mpf\WebApp::get()->user()->name,
-                        'htmlOptions' => array('style' => 'float:right;'),
-                        'items' => array(
-                            array(
-                                'url' => array('user', 'profile'),
+                        'htmlOptions' => ['style' => 'float:right;'],
+                        'items' => [
+                            [
+                                'url' => ['user', 'profile'],
                                 'label' => 'My Profile'
-                            ),
-                            array(
-                                'url' => array('user', 'edit'),
+                            ],
+                            [
+                                'url' => ['user', 'edit'],
                                 'label' => 'Edit My Profile'
-                            ),
-                            array(
-                                'url' => array('user', 'email'),
+                            ],
+                            [
+                                'url' => ['user', 'email'],
                                 'label' => 'Change Email'
-                            ),
-                            array(
-                                'url' => array('user', 'password'),
+                            ],
+                            [
+                                'url' => ['user', 'password'],
                                 'label' => 'Change Password'
-                            ),
-                            array(
-                                'url' => array('home', 'index', 'admin'),
+                            ],
+                            [
+                                'url' => ['home', 'index', 'admin'],
                                 'label' => 'Administration'
-                            ),
-                            array(
-                                'url' => array('user', 'logout'),
+                            ],
+                            [
+                                'url' => ['user', 'logout'],
                                 'label' => 'Logout'
-                            )
-                        )
-                    ),
-                    /*                    array(
+                            ]
+                        ]
+                    ],
+                    /*                    [
                                             'label' => 'Windows Login',
                                             'url' => 'http://test.test',
                                             'htmlOptions' => ['style' => 'float:right;'],
                                             'linkHtmlOptions' => ['class' => 'ext-login-button windows-login-button']
-                                        ),
-                                        array(
+                                        ],
+                                        [
                                             'label' => 'Twitter Login',
                                             'url' => 'http://test.test',
                                             'htmlOptions' => ['style' => 'float:right;'],
                                             'linkHtmlOptions' => ['class' => 'ext-login-button twitter-login-button']
-                                        ),
-                                        array(
+                                        ],
+                                        [
                                             'label' => 'Yahoo Login',
                                             'url' => 'http://test.test',
                                             'htmlOptions' => ['style' => 'float:right;'],
                                             'linkHtmlOptions' => ['class' => 'ext-login-button yahoo-login-button']
                                         ),
-                                        array(
+                                        [
                                             'label' => 'GitHub Login',
                                             'url' => 'http://test.test',
                                             'htmlOptions' => ['style' => 'float:right;'],
                                             'linkHtmlOptions' => ['class' => 'ext-login-button github-login-button']
-                                        ),*/
-                    array(
+                                        ],*/
+                    [
                         'label' => 'Google Login',
                         'url' => ($url = \mpf\WebApp::get()->user()->getGoogleClient() ? \mpf\WebApp::get()->user()->getGoogleClient()->createAuthUrl() : null),
                         'htmlOptions' => ['style' => 'float:right;'],
                         'linkHtmlOptions' => ['class' => 'ext-login-button google-login-button'],
                         'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url)
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'Facebook Login',
                         'url' => $url = \mpf\WebApp::get()->user()->getFacebookLoginURL(),
                         'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url),
                         'htmlOptions' => ['style' => 'float:right;'],
                         'linkHtmlOptions' => ['class' => 'ext-login-button facebook-login-button']
-                    )
-                )
-            ))->display();
+                    ]
+                ]
+            ])->display();
             ?>
         </div>
         <div id="content">
