@@ -17,32 +17,32 @@
             </div>
             <div id="menu-bar">
                 <?php
-                \mpf\widgets\menu\Menu::get(array(
-                    'items' => array(
-                        array(
-                            'url' => array(),
+                \mpf\widgets\menu\Menu::get([
+                    'items' => [
+                        [
+                            'url' => [],
                             'label' => 'Home'
-                        ),
-                        array(
-                            'url' => array('user', 'login'),
+                        ],
+                        [
+                            'url' => ['user', 'login'],
                             'label' => 'Login',
                             'visible' => \mpf\WebApp::get()->user()->isGuest()
-                        ),
-                        array(
-                            'url' => array('user', 'forgotpassword'),
+                        ],
+                        [
+                            'url' => ['user', 'forgotpassword'],
                             'label' => 'Forgot Password',
                             'visible' => \mpf\WebApp::get()->user()->isGuest()
-                        ),
-                        array(
+                        ],
+                        [
                             'class' => 'Label',
                             'label' => 'Admin',
                             'visible' => \mpf\WebApp::get()->user()->isConnected(),
-                            'items' => array(
-                                array(
+                            'items' => [
+                                [
                                     'url' => array('users', 'index'),
                                     'label' => 'Users',
                                     'visible' => \mpf\WebApp::get()->user()->isConnected(),
-                                    'items' => array(
+                                    'items' => [
                                         array(
                                             'url' => array('users', 'index'),
                                             'label' => 'Manage Users'
@@ -67,22 +67,22 @@
                                             'url' => array('usertitles', 'create'),
                                             'label' => 'New Title'
                                         )
-                                    ),
+                                    ],
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/apps/system-users.png')
-                                ),
-                                array(
-                                    'url' => array('admin', 'config'),
+                                ],
+                                [
+                                    'url' => ['admin', 'config'],
                                     'label' => 'Config',
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/categories/preferences-other.png')
-                                ),
-                                array(
-                                    'url' => array('admin', 'crontab'),
+                                ],
+                                [
+                                    'url' => ['admin', 'crontab'],
                                     'label' => 'Crontab',
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/categories/applications-system.png')
-                                )
-                            )
-                        ),
-                        array(
+                                ]
+                            ]
+                        ],
+                        [
                             'class' => 'Label',
                             'label' => \mpf\WebApp::get()->user()->isGuest() ? 'Welcome Guest!' : 'Welcome ' . \mpf\WebApp::get()->user()->name,
                             'htmlOptions' => array('style' => 'float:right;'),
@@ -113,48 +113,48 @@
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/status/task-reject.png')
                                 )
                             )
-                        ),
+                        ],
 
-       /*                 array(
+       /*                 [
                             'label' => 'Windows Login',
                             'url' => 'http://test.test',
                             'htmlOptions' => ['style' => 'float:right;'],
                             'linkHtmlOptions' => ['class' => 'ext-login-button windows-login-button']
-                        ),
-                        array(
+                        ],
+                        [
                             'label' => 'Twitter Login',
                             'url' => 'http://test.test',
                             'htmlOptions' => ['style' => 'float:right;'],
                             'linkHtmlOptions' => ['class' => 'ext-login-button twitter-login-button']
-                        ),
-                        array(
+                        ],
+                        [
                             'label' => 'Yahoo Login',
                             'url' => 'http://test.test',
                             'htmlOptions' => ['style' => 'float:right;'],
                             'linkHtmlOptions' => ['class' => 'ext-login-button yahoo-login-button']
-                        ),
-                        array(
+                        ],
+                        [
                             'label' => 'GitHub Login',
                             'url' => 'http://test.test',
                             'htmlOptions' => ['style' => 'float:right;'],
                             'linkHtmlOptions' => ['class' => 'ext-login-button github-login-button']
-                        ),*/
-                        array(
+                        ],*/
+                        [
                             'label' => 'Google Login',
                             'url' => ($url = \mpf\WebApp::get()->user()->getGoogleClient()?\mpf\WebApp::get()->user()->getGoogleClient()->createAuthUrl():null),
                             'htmlOptions' => ['style' => 'float:right;'],
                             'linkHtmlOptions' => ['class' => 'ext-login-button google-login-button'],
                             'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url)
-                        ),
-                        array(
+                        ],
+                        [
                             'label' => 'Facebook Login',
                             'url' => ($url = \mpf\WebApp::get()->user()->getFacebookLoginURL()),
                             'visible' => \mpf\WebApp::get()->user()->isGuest() && trim($url),
                             'htmlOptions' => ['style' => 'float:right;'],
                             'linkHtmlOptions' => ['class' => 'ext-login-button facebook-login-button']
-                        )
-                    )
-                ))->display();
+                        ]
+                    ]
+                ])->display();
                 ?>
             </div>
         </div>
