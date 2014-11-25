@@ -39,34 +39,34 @@
                             'visible' => \mpf\WebApp::get()->user()->isConnected(),
                             'items' => [
                                 [
-                                    'url' => array('users', 'index'),
+                                    'url' => ['users', 'index'],
                                     'label' => 'Users',
                                     'visible' => \mpf\WebApp::get()->user()->isConnected(),
                                     'items' => [
-                                        array(
-                                            'url' => array('users', 'index'),
+                                        [
+                                            'url' => ['users', 'index'],
                                             'label' => 'Manage Users'
-                                        ),
-                                        array(
-                                            'url' => array('users', 'create'),
+                                        ],
+                                        [
+                                            'url' => ['users', 'create'],
                                             'label' => 'New User'
-                                        ),
-                                        array(
-                                            'url' => array('usergroups', 'index'),
+                                        ],
+                                        [
+                                            'url' => ['usergroups', 'index'],
                                             'label' => 'Manage Groups'
-                                        ),
-                                        array(
-                                            'url' => array('usergroups', 'create'),
+                                        ],
+                                        [
+                                            'url' => ['usergroups', 'create'],
                                             'label' => 'New Group'
-                                        ),
-                                        array(
-                                            'url' => array('usertitles', 'index'),
+                                        ],
+                                        [
+                                            'url' => ['usertitles', 'index'],
                                             'label' => 'Manage Titles'
-                                        ),
-                                        array(
-                                            'url' => array('usertitles', 'create'),
+                                        ],
+                                        [
+                                            'url' => ['usertitles', 'create'],
                                             'label' => 'New Title'
-                                        )
+                                        ]
                                     ],
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/apps/system-users.png')
                                 ],
@@ -85,34 +85,34 @@
                         [
                             'class' => 'Label',
                             'label' => \mpf\WebApp::get()->user()->isGuest() ? 'Welcome Guest!' : 'Welcome ' . \mpf\WebApp::get()->user()->name,
-                            'htmlOptions' => array('style' => 'float:right;'),
-                            'items' => array(
-                                array(
-                                    'url' => array('user', 'profile'),
+                            'htmlOptions' => ['style' => 'float:right;'],
+                            'items' => [
+                                [
+                                    'url' => ['user', 'profile'],
                                     'label' => 'My Profile',
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/apps/preferences-desktop-user.png')
-                                ),
-                                array(
-                                    'url' => array('user', 'edit'),
+                                ],
+                                [
+                                    'url' => ['user', 'edit'],
                                     'label' => 'Edit My Profile',
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/apps/accessories-text-editor.png')
-                                ),
-                                array(
-                                    'url' => array('user', 'email'),
+                                ],
+                                [
+                                    'url' => ['user', 'email'],
                                     'label' => 'Change Email',
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/status/mail-unread.png')
-                                ),
-                                array(
-                                    'url' => array('user', 'password'),
+                                ],
+                                [
+                                    'url' => ['user', 'password'],
                                     'label' => 'Change Password',
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/actions/system-lock-screen.png')
-                                ),
-                                array(
-                                    'url' => array('user', 'logout'),
+                                ],
+                                [
+                                    'url' => ['user', 'logout'],
                                     'label' => 'Logout',
                                     'icon' => \mpf\web\AssetsPublisher::get()->mpfAssetFile('images/oxygen/22x22/status/task-reject.png')
-                                )
-                            )
+                                ]
+                            ]
                         ],
 
        /*                 [
