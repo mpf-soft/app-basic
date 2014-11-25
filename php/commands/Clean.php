@@ -13,6 +13,11 @@ use app\components\Command;
 use app\models\GlobalConfig;
 use app\models\User;
 
+/**
+ * Class Clean
+ * Contains methods to clean db from Users, to any other table that needs cleaning.
+ * @package app\commands
+ */
 class Clean extends Command{
 
     /**

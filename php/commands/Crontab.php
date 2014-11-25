@@ -10,6 +10,11 @@ namespace app\commands;
 
 use app\components\Command;
 
+/**
+ * Class Crontab
+ * Will execute all cron jobs from web interface.
+ * @package app\commands
+ */
 class Crontab extends Command{
 
     /**
