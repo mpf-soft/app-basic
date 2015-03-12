@@ -88,7 +88,7 @@ class GlobalConfig extends DbModel {
         if (!$cache){
             $cache = self::updateCache();
         }
-        return $cache[$key]?:null;
+        return isset($cache[$key])?$cache[$key]:null;
     }
 
     protected static $configValues;
