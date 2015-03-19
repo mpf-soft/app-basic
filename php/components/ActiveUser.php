@@ -48,6 +48,7 @@ use mpf\WebApp;
  * @property string $email
  * @property string $status
  * @property array $mergedIDs
+ * @property string $title
  */
 class ActiveUser extends \mpf\web\ActiveUser {
 
@@ -299,6 +300,7 @@ class ActiveUser extends \mpf\web\ActiveUser {
         $this->setState('name', $user->name);
         $this->setState('email', $user->email);
         $this->setState('status', $user->status);
+        $this->setState('title', $user->title?$user->title->title:'- no title -');
         if ($user->joinuser_id){
             $all = User::findAllByAttributes(['joinuser_id' => $user->joinuser_id]);
             $this->setState('mergedIDs', ArrayHelper::get()->transform($all, 'id'));
