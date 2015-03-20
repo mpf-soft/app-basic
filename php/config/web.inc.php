@@ -11,6 +11,8 @@ $main['mpf\\web\\Cookie'] = [
 $main['mpf\\web\\request\\HTML'] = [
     'SEO' => true,
     'urlRoutes' => [
+        // 'guild\/(?<section>[0-9]+)\/forum\/(?<controller>[a-zA-Z0-9]+)\/(?<action>[a-zA-Z0-9_\-]+)' => ['module' => 'forum'],
+        // 'guild\/(?<section>[0-9]+)\/forum\/(?<controller>[a-zA-Z0-9]+)' => ['module' => 'forum'],
         '(?<language>[a-z]{2})\/(?<controller>[a-zA-Z0-9]+)\/(?<action>[a-zA-Z0-9_\-]+)\/(?<id>[0-9]+)', // language & controller & action  & id
         '(?<controller>[a-zA-Z0-9]+)\/(?<action>[a-zA-Z0-9_\-]+)\/(?<id>[0-9]+)', // controller & action & id
         '(?<language>[a-z]{2})\/(?<controller>[a-zA-Z0-9]+)\/(?<action>[a-zA-Z0-9_\-]+)', // language & controller & action
