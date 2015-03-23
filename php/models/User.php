@@ -476,10 +476,18 @@ class User extends DbModel {
     }
 
     /**
+     * Section and module are used by different modules when they required user list. For example forum module and later
+     * maybe blog module or messaging.
+     * @param int $section
+     * @param string $module
      * @return DataProvider
      */
-    public function getDataProvider(){
+    public function getDataProvider($section = null, $module = null){
         $condition = new ModelCondition(array('model' => __CLASS__));
+
+        if('forum' == $module && $section){ // filter users for this section;
+
+        }
 
         foreach (array('id', 'name', 'email', 'status', 'register_date', 'last_login', 'last_login_source') as $column) {
             if ($this->$column) {
