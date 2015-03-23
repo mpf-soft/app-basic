@@ -89,6 +89,13 @@ class User extends DbModel {
      */
     public $newPassword, $repeatedPassword, $oldPassword, $newEmail;
 
+    /**
+     * Forum Group will be used by forum module. If you don't use that module then you can delete this attribute also.
+     * You can use it to filter user by group
+     * @var int
+     */
+    public $forumGroup;
+
     public $groupIDs;
     public $comment;
     /**
