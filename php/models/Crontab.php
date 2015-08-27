@@ -87,7 +87,7 @@ class Crontab extends DbModel {
         if (!$this->enabled){
             return false;
         }
-        return ($this->laststart != self::cronLastRun($this->interval));//check if last start is different than last programmed start
+        return $this->laststart < self::cronLastRun($this->interval);//check if last start is different than last programmed start
     }
 
     /**
