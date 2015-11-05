@@ -14,6 +14,11 @@ use mpf\base\LogAwareObject;
 /**
  * Class SwiftMailer
  * To use this "swiftmailer/swiftmailer" : "*" must be added to composer requirements
+ * And add this for MailHelper config;
+"method" => function ($to, $from, $subject, $message, $attachments, $headerExtra, $html) {
+unset($headerExtra);
+return \app\components\SwiftMailer::get()->send($to, $from, $subject, $message, $attachments, $html);
+}
  * @package app\components
  */
 class SwiftMailer extends LogAwareObject {
