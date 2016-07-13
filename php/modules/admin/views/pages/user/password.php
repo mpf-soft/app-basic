@@ -1,6 +1,6 @@
 <?php require __DIR__ . '/_header.php'; ?>
 
-<?= \mpf\widgets\form\Form::get(array(
+<?= \mpf\widgets\form\Form::get([
     'name' => 'save',
     'model' => $model,
     'theme' => 'default-wide',
@@ -21,4 +21,4 @@
     'formHtmlOptions' => array(
         'autocomplete' => 'off'
     )
-))->display(); ?>
+])->display(); ?>

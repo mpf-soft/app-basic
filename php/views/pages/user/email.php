@@ -1,17 +1,17 @@
 <?php require __DIR__ . '/_header.php'; ?>
 
-<?= \mpf\widgets\form\Form::get(array(
+<?= \mpf\widgets\form\Form::get([
     'name' => 'save',
     'model' => $model,
     'theme' => 'default-wide',
-    'fields' => array(
+    'fields' => [
         [
             'name' => 'oldPassword',
             'type' => 'password'
         ],
         'newEmail'
-    ),
-    'formHtmlOptions' => array(
+    ],
+    'formHtmlOptions' => [
         'autocomplete' => 'off'
-    )
-))->display();?>
+    ]
+])->display();?>

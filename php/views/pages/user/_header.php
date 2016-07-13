@@ -1,6 +1,6 @@
 <?php use app\components\htmltools\Page; ?>
 <?php
-$actions = array(
+$actions = [
     'profile' => 'View Profile',
     'edit' => 'Edit Profile',
     'email' => 'Change Email',
@@ -9,16 +9,16 @@ $actions = array(
     'register' => 'Create a new account',
     'forgotpassword' => 'Forgot Password',
     'registerauto' => 'Profile details - Last step'
-);
-$menu = array();
+];
+$menu = [];
 foreach ($actions as $action => $label) {
-    $menu[] = array(
-        'url' => array('user', $action),
+    $menu[] = [
+        'url' => ['user', $action],
         'label' => $label,
-        'visible' => ('registerauto' == $action) ? false : (in_array($action, array('login', 'register', 'forgotpassword')) ? \mpf\WebApp::get()->user()->isGuest() : \mpf\WebApp::get()->user()->isConnected()),
-        'htmlOptions' => ($action == \mpf\WebApp::get()->request()->getAction()) ? array('class' => 'selected') : array()
-    );
+        'visible' => ('registerauto' == $action) ? false : (in_array($action, ['login', 'register', 'forgotpassword']) ? \mpf\WebApp::get()->user()->isGuest() : \mpf\WebApp::get()->user()->isConnected()),
+        'htmlOptions' => ($action == \mpf\WebApp::get()->request()->getAction()) ? ['class' => 'selected'] : []
+    ];
 }
 ?>
 
-<?= Page::title('User - ' . $actions[\mpf\WebApp::get()->request()->getAction()], $menu); ?>
+<?= Page::title('User', $menu); ?>

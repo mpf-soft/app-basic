@@ -45,12 +45,14 @@ use mpf\WebApp;
  * @package app\components
  * @property int $id
  * @property string $name
+ * @property string $icon
  * @property string $email
  * @property string $status
  * @property array $mergedIDs
  * @property string $title
  */
-class ActiveUser extends \mpf\web\ActiveUser {
+class ActiveUser extends \mpf\web\ActiveUser
+{
 
     /**
      * Cookie timeout in days
@@ -65,7 +67,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
      */
     public $autoLoginSources = ['cookie', 'facebook', 'google', 'gitHub', 'yahoo', 'twitter', 'windows'];
 
-    public function login($user, $password, $source = 'post', $rememberMe = true) {
+    public function login($user, $password, $source = 'post', $rememberMe = true)
+    {
         $searchBy = (false !== strpos($user, '@')) ? 'email' : 'name';
         $user = User::findByAttributes(array(
             $searchBy => $user,
@@ -81,9 +84,10 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * Checks login from cookie or any other  used by user;
      */
-    protected function checkAutoLogin() {
+    protected function checkAutoLogin()
+    {
         foreach ($this->autoLoginSources as $source) {
-            if (!is_null($user = $this->{'check' . ucfirst($source)}())){
+            if (!is_null($user = $this->{'check' . ucfirst($source)}())) {
                 return $this->checkUserLogin($user, $source, true);
             }
         }
@@ -97,7 +101,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * @return FacebookRedirectLoginHelper|null
      */
-    protected function getFacebookRedirectLoginHelper($force = false) {
+    protected function getFacebookRedirectLoginHelper($force = false)
+    {
         if ($this->isConnected() && !$force)
             return null;
         if (!$this->facebookLoginHelper) {
@@ -105,7 +110,7 @@ class ActiveUser extends \mpf\web\ActiveUser {
                 return null;
             }
             FacebookSession::setDefaultApplication(GlobalConfig::value('FACEBOOK_APPID'), GlobalConfig::value('FACEBOOK_APPSECRET'));
-            $this->facebookLoginHelper = new FacebookRedirectLoginHelper($force?WebApp::get()->request()->createURL('user', 'profile'):WebApp::get()->request()->getLinkRoot());
+            $this->facebookLoginHelper = new FacebookRedirectLoginHelper($force ? WebApp::get()->request()->createURL('user', 'profile') : WebApp::get()->request()->getLinkRoot());
         }
         return $this->facebookLoginHelper;
     }
@@ -113,7 +118,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * @return string|null
      */
-    public function getFacebookLoginURL($force = false) {
+    public function getFacebookLoginURL($force = false)
+    {
         if (!is_null($helper = $this->getFacebookRedirectLoginHelper($force))) {
             return $helper->getLoginUrl(['email']);
         }
@@ -122,7 +128,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
     /**
      * @return User|null
      */
-    public function checkFacebook($force = false) {
+    public function checkFacebook($force = false)
+    {
         if (is_null($helper = $this->getFacebookRedirectLoginHelper($force))) {
             return null;
         }
@@ -145,8 +152,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
             return null;
         }
 
-        if ($force){
-            $user =User::findByPk($this->id);
+        if ($force) {
+            $user = User::findByPk($this->id);
             $user->fb_id = $me->getId();
             UserConfig::set('FACEBOOK_NAME', $me->getFirstName() . ' ' . $me->getMiddleName() . ' ' . $me->getLastName());
             UserConfig::set('FACEBOOK_EMAIL', $me->getProperty('email'));
@@ -183,17 +190,18 @@ class ActiveUser extends \mpf\web\ActiveUser {
      * @param bool $force
      * @return null|\Google_Client
      */
-    public function getGoogleClient($force = false){
+    public function getGoogleClient($force = false)
+    {
         if ($this->isConnected() && !$force)
             return null;
-        if (!$this->googleClient){
-            if (!GlobalConfig::value('GOOGLE_CLIENTID') || !GlobalConfig::value('GOOGLE_CLIENTSECRET') || !GlobalConfig::value('GOOGLE_DEVELOPERKEY')){
+        if (!$this->googleClient) {
+            if (!GlobalConfig::value('GOOGLE_CLIENTID') || !GlobalConfig::value('GOOGLE_CLIENTSECRET') || !GlobalConfig::value('GOOGLE_DEVELOPERKEY')) {
                 return null;
             }
             $this->googleClient = new \Google_Client();
             $this->googleClient->setClientId(GlobalConfig::value('GOOGLE_CLIENTID'));
             $this->googleClient->setClientSecret(GlobalConfig::value('GOOGLE_CLIENTSECRET'));
-            $this->googleClient->setRedirectUri($force?WebApp::get()->request()->createURL('user', 'profile'):WebApp::get()->request()->getLinkRoot());
+            $this->googleClient->setRedirectUri($force ? WebApp::get()->request()->createURL('user', 'profile') : WebApp::get()->request()->getLinkRoot());
             $this->googleClient->setDeveloperKey(GlobalConfig::value('GOOGLE_DEVELOPERKEY'));
             $this->googleClient->setScopes(array(
                 'https://www.googleapis.com/auth/plus.me',
@@ -205,11 +213,12 @@ class ActiveUser extends \mpf\web\ActiveUser {
         return $this->googleClient;
     }
 
-    public function checkGoogle($force = false) {
-        if (is_null($client = $this->getGoogleClient($force))){
+    public function checkGoogle($force = false)
+    {
+        if (is_null($client = $this->getGoogleClient($force))) {
             return null;
         }
-        if (!isset($_GET['code']) || isset($_GET['state'])){
+        if (!isset($_GET['code']) || isset($_GET['state'])) {
             return null;
         }
         $this->debug($_GET['code']);
@@ -222,8 +231,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
             'profile_url' => filter_var($user['link'], FILTER_VALIDATE_URL),
             'image_url' => filter_var($user['picture'], FILTER_VALIDATE_URL)
         ];
-        if ($force){
-            $user =User::findByPk($this->id);
+        if ($force) {
+            $user = User::findByPk($this->id);
             $user->google_id = $details['id'];
             UserConfig::set('GOOGLE_NAME', $details['name']);
             UserConfig::set('GOOGLE_EMAIL', $details['email']);
@@ -232,33 +241,38 @@ class ActiveUser extends \mpf\web\ActiveUser {
             return $user->save(false);
         }
 
-        if (!is_null($user = User::findByAttributes(['google_id' => $details['id']]))){
+        if (!is_null($user = User::findByAttributes(['google_id' => $details['id']]))) {
             return $user;
         }
 
         return User::googleRegister($details);
     }
 
-    protected function checkGitHub(){
+    protected function checkGitHub()
+    {
         return null;
     }
 
-    protected function checkYahoo(){
+    protected function checkYahoo()
+    {
         return null;
     }
 
-    protected function checkTwitter(){
+    protected function checkTwitter()
+    {
         return null;
     }
 
-    protected function checkWindows(){
+    protected function checkWindows()
+    {
         return null;
     }
 
     /**
      * @return null|User
      */
-    protected function checkCookie() {
+    protected function checkCookie()
+    {
         if (null === ($email = Cookie::get()->value($this->cookieKey))) {
             return null;
         }
@@ -273,12 +287,13 @@ class ActiveUser extends \mpf\web\ActiveUser {
      * @param boolean $rememberMe
      * @return boolean
      */
-    protected function checkUserLogin(User $user, $source, $rememberMe) {
+    protected function checkUserLogin(User $user, $source, $rememberMe)
+    {
         if ($user->status == User::STATUS_NEW) {
-            if (is_null($user->lastconfirmationmail_date) || $user->lastconfirmationmail_date < date('Y-m-d H:i:s', strtotime('-5 minutes'))){
+            if (is_null($user->lastconfirmationmail_date) || $user->lastconfirmationmail_date < date('Y-m-d H:i:s', strtotime('-5 minutes'))) {
                 // if confirmation email was older than 5 minutes then allow it to resend it
                 User::$allowConfirmationEmailResend = true;
-                if (isset($_POST['resend'])){
+                if (isset($_POST['resend'])) {
                     $user->resendConfirmationEmail();
                 }
             }
@@ -299,14 +314,15 @@ class ActiveUser extends \mpf\web\ActiveUser {
         $this->setState('id', $user->id);
         $this->setState('name', $user->name);
         $this->setState('email', $user->email);
+        $this->setState('icon', $user->icon ?: 'default.png');
         $this->setState('status', $user->status);
-        $this->setState('title', $user->title?$user->title->title:'- no title -');
-        if ($user->joinuser_id){
+        $this->setState('title', $user->title ? $user->title->title : '- no title -');
+        if ($user->joinuser_id) {
             $all = User::findAllByAttributes(['joinuser_id' => $user->joinuser_id]);
             $this->setState('mergedIDs', ArrayHelper::get()->transform($all, 'id'));
         }
         $this->setRights($groups = $user->getGroupsList());
-        $this->debug("Saved groups: " . implode(", " , $groups));
+        $this->debug("Saved groups: " . implode(", ", $groups));
         $user->last_login = date('Y-m-d H:i:s');
         $user->last_login_source = $source;
         $user->save();
@@ -321,7 +337,8 @@ class ActiveUser extends \mpf\web\ActiveUser {
         return true;
     }
 
-    public function init($config = []) {
+    public function init($config = [])
+    {
         parent::init($config);
         if ($this->isConnected()) {
             if (!trim($this->name)) {

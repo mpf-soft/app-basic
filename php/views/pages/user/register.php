@@ -2,28 +2,25 @@
 
 <?php
 
-echo \mpf\widgets\form\Form::get(array(
+echo \mpf\widgets\form\Form::get([
     'name' => 'register',
     'model' => $user,
-    'fields' => array(
+    'fields' => [
         'name',
         'email',
-        array(
+        [
             'name' => 'newPassword',
             'type' => 'password'
-        ),
-        array(
+        ],
+        [
             'name' => 'repeatedPassword',
             'type' => 'password'
-        )
-    ),
-    'htmlOptions' => array(
-        'style' => 'width:  460px; margin-left:270px;'
-    ),
-    'formHtmlOptions' => array(
+        ]
+    ],
+    'formHtmlOptions' => [
         'autocomplete' => 'off'
-    ),
-    'links' => array(
-        'Login' => \mpf\WebApp::get()->request()->createURL('users', 'login')
-    )
-))->display();
+    ],
+    'links' => [
+        'Login' => \mpf\WebApp::get()->request()->createURL('user', 'login')
+    ]
+])->display();

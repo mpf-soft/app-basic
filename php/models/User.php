@@ -52,6 +52,7 @@ use mpf\WebApp;
  * @property \app\models\UserTitle $title
  * @property int $id
  * @property string $name
+ * @property string $icon
  * @property string $email
  * @property string $password
  * @property string $register_date
@@ -74,6 +75,8 @@ class User extends DbModel {
     const STATUS_BLOCKED = 2; // account blocked
     const STATUS_DELETED = 3; // account deleted by user (it will be deleted in a few days from DB)
     const TYPE_VISITOR = 0; // normal user
+    const AVATAR_LOCATION_URL = 'uploads/user-avatars';
+    const AVATAR_LOCATION_PATH = 'uploads/user-avatars';
     /**
      * CHANGE THIS VALUE FOR EACH APPLICATION CREATED! KEEP IT FOR INTERNAL APPLICATIONS ONLY IF YOU NEED TO IMPORT USERS
      * FROM ONE APP TO ANOTHER.

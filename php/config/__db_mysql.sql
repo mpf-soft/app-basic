@@ -61,6 +61,7 @@ CREATE TABLE `users` (
   `name` varchar(80) NOT NULL,
   `email` varchar(120) NOT NULL,
   `password` varchar(40) NOT NULL,
+  `icon` VARCHAR (100) NOT NULL DEFAULT 'default.png',
   `register_date` timestamp NULL DEFAULT NULL,
   `last_login` timestamp NULL DEFAULT NULL,
   `last_login_source` varchar(30) NOT NULL,

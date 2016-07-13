@@ -1,21 +1,21 @@
 <?php require __DIR__ . '/_header.php'; ?>
 <?php /* @var $model app\models\User */ ?>
-<?= \mpf\widgets\viewtable\Table::get(array(
+<?= \mpf\widgets\viewtable\Table::get([
     'model' => $model,
     'labels' => $model::getLabels(),
-    'columns' => array(
+    'columns' => [
         'name',
         'email',
         'register_date',
         'last_login',
-        'status' => array(
+        'status' => [
             'value' => $model->getStringStatus()
-        ),
-        'fb_id' => array(
+        ],
+        'fb_id' => [
             'value' => $model->getFacebookConnectOrViewURL()
-        ),
-        'google_id' => array(
+        ],
+        'google_id' => [
             'value' => $model->getGoogleConnectOrViewURL()
-        )
-    )
-))->display(); ?>
+        ]
+    ]
+])->display(); ?>

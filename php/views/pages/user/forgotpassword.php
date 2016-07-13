@@ -6,8 +6,5 @@ echo \mpf\widgets\form\Form::get([
     'name' => 'reset_password',
     'fields' => [
         'email'
-    ],
-    'htmlOptions' => [
-        'style' => 'width:  460px; margin-left:270px;'
     ]
 ])->display();

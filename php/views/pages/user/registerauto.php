@@ -2,21 +2,18 @@
 
 <?php
 
-echo \mpf\widgets\form\Form::get(array(
+echo \mpf\widgets\form\Form::get([
     'name' => 'save_data_and_login',
     'model' => $model,
-    'fields' => array(
+    'fields' => [
         'name',
-        array(
+        [
             'name' => 'newPassword',
             'type' => 'password'
-        ),
-        array(
+        ],
+        [
             'name' => 'repeatedPassword',
             'type' => 'password'
-        )
-    ),
-    'htmlOptions' => array(
-        'style' => 'width:  460px; margin-left:270px;'
-    )
-))->display();
+        ]
+    ]
+])->display();
