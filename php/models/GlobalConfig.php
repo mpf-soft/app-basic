@@ -83,15 +83,30 @@ class GlobalConfig extends DbModel {
         ));
     }
 
-    public static function value($key){
+    public static function value($key, $default = null){
         $cache = App::get()->cacheValue('app:GlobalConfig');
         if (!$cache){
             $cache = self::updateCache();
         }
-        return isset($cache[$key])?$cache[$key]:null;
+        if (!isset($cache[$key]))
+            self::createDefault($key, $default);
+        return isset($cache[$key]) ? $cache[$key] : $default;
     }
 
     protected static $configValues;
+
+    protected static function createDefault($key, $val)
+    {
+        $val = (string)$val;
+        self::insert([
+            'name' => $key,
+            'value' => $val,
+            'description' => $key,
+            'lastupdate_date' => date('Y-m-d H:i:s'),
+            'lastupdate_user' => 0
+        ]);
+        self::updateCache();
+    }
 
     public static function updateCache(){
         if (self::$configValues){
