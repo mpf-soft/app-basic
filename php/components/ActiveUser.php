@@ -273,7 +273,7 @@ class ActiveUser extends \mpf\web\ActiveUser
      */
     protected function checkCookie()
     {
-        if (null === ($email = Cookie::get()->value($this->cookieKey))) {
+        if (null === ($email = Cookie::get()->value(App::get()->shortName . $this->cookieKey))) {
             return null;
         }
         return User::findByAttributes(array(
@@ -327,7 +327,7 @@ class ActiveUser extends \mpf\web\ActiveUser
         $user->last_login_source = $source;
         $user->save();
         if ($rememberMe) {
-            Cookie::get()->set($this->cookieKey, $user->email, $this->cookieTimeout);
+            Cookie::get()->set(App::get()->shortName . $this->cookieKey, $user->email, $this->cookieTimeout);
         }
         if (!trim($user->name)) { // fill last details if they were not already saved
             $this->debug('need auto register');
