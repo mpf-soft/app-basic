@@ -39,6 +39,7 @@ use Facebook\GraphUser;
 use mpf\helpers\ArrayHelper;
 use mpf\web\Cookie;
 use mpf\WebApp;
+use mpf\base\App;
 
 /**
  * Class ActiveUser
